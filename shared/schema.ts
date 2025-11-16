@@ -24,6 +24,14 @@ export interface Event {
   time: string;
   attire: string;
   description?: string;
+  // Optional richer fields for event detail pages
+  venue?: string;
+  address?: string;
+  host?: string;
+  fullDescription?: string;
+  startTime?: string;
+  endTime?: string;
+  dateISO?: string;
   image: string;
 }
 

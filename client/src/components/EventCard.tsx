@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { useLocation } from "wouter";
 import type { Event } from "@shared/schema";
 
 interface EventCardProps {
@@ -6,8 +7,18 @@ interface EventCardProps {
 }
 
 export function EventCard({ event }: EventCardProps) {
+  const [, setLocation] = useLocation();
+
+  const handleClick = () => {
+    setLocation(`/events/${event.id}`);
+  };
+
   return (
-    <Card className="overflow-hidden hover-elevate transition-all duration-300" data-testid={`card-event-${event.id}`}>
+    <Card 
+      onClick={handleClick}
+      className="overflow-hidden hover-elevate transition-all duration-300 cursor-pointer hover:shadow-lg" 
+      data-testid={`card-event-${event.id}`}
+    >
       <div className="aspect-[4/3] overflow-hidden">
         <img 
           src={event.image} 
