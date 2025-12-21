@@ -14,30 +14,28 @@ import NotFound from "@/pages/not-found";
 
 import RSVPPopup from "./components/RSVPPopup";
 
-/* ---------------- Router ---------------- */
-
 function Router() {
   return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/photos" component={Photos} />
-      <Route path="/events" component={Events} />
-      <Route path="/events/:eventId" component={EventDetailPage} />
-      <Route path="/travel" component={Travel} />
-      <Route path="/things-to-do" component={ThingsToDo} />
-      <Route component={NotFound} />
-    </Switch>
+    <>
+      {/* 🔴 RENDER POPUP INSIDE ROUTER TREE */}
+      <RSVPPopup />
+
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/photos" component={Photos} />
+        <Route path="/events" component={Events} />
+        <Route path="/events/:eventId" component={EventDetailPage} />
+        <Route path="/travel" component={Travel} />
+        <Route path="/things-to-do" component={ThingsToDo} />
+        <Route component={NotFound} />
+      </Switch>
+    </>
   );
 }
-
-/* ---------------- App ---------------- */
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      {/* 🔴 RSVP POPUP MUST BE OUTSIDE TOOLTIP PROVIDER */}
-      <RSVPPopup />
-
       <TooltipProvider>
         <Toaster />
         <Router />
