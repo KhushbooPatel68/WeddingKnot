@@ -10,6 +10,8 @@ import EventDetailPage from "@/pages/EventDetail";
 import Travel from "@/pages/Travel";
 import ThingsToDo from "@/pages/ThingsToDo";
 import NotFound from "@/pages/not-found";
+import RSVPPopup from "./components/RSVPPopup";
+
 
 function Router() {
   return (
@@ -30,10 +32,15 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
+
+        {/* 🔹 ADD THIS LINE */}
+        <RSVPPopup />
+
         <Router />
       </TooltipProvider>
     </QueryClientProvider>
   );
 }
+
 
 export default App;
