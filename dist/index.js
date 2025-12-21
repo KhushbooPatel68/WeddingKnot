@@ -4,44 +4,66 @@ import express2 from "express";
 // server/routes.ts
 import { createServer } from "http";
 
+// shared/schema.ts
+import { sql } from "drizzle-orm";
+import { pgTable, text, varchar, timestamp } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
+var users = pgTable("users", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  username: text("username").notNull().unique(),
+  password: text("password").notNull()
+});
+var rsvps = pgTable("rsvps", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  mobile: text("mobile").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull()
+});
+var insertUserSchema = createInsertSchema(users).pick({
+  username: true,
+  password: true
+});
+var insertRsvpSchema = createInsertSchema(rsvps).pick({
+  name: true,
+  mobile: true
+});
+
+// server/db.ts
+import { drizzle } from "drizzle-orm/node-postgres";
+import pkg from "pg";
+var { Pool } = pkg;
+if (!process.env.DATABASE_URL) {
+  throw new Error("DATABASE_URL is required");
+}
+var pool = new Pool({
+  connectionString: process.env.DATABASE_URL
+});
+var db = drizzle(pool);
+
 // server/storage.ts
-import { randomUUID } from "crypto";
-var MemStorage = class {
-  users;
-  rsvpList;
-  constructor() {
-    this.users = /* @__PURE__ */ new Map();
-    this.rsvpList = /* @__PURE__ */ new Map();
-  }
+import { eq } from "drizzle-orm";
+var DbStorage = class {
   async getUser(id) {
-    return this.users.get(id);
+    const result = await db.select().from(users).where(eq(users.id, id));
+    return result[0];
   }
   async getUserByUsername(username) {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username
-    );
+    const result = await db.select().from(users).where(eq(users.username, username));
+    return result[0];
   }
   async createUser(insertUser) {
-    const id = randomUUID();
-    const user = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+    const result = await db.insert(users).values(insertUser).returning();
+    return result[0];
   }
   async createRsvp(rsvp) {
-    const id = randomUUID();
-    const newRsvp = {
-      ...rsvp,
-      id,
-      createdAt: /* @__PURE__ */ new Date()
-    };
-    this.rsvpList.set(id, newRsvp);
-    return newRsvp;
+    const result = await db.insert(rsvps).values(rsvp).returning();
+    return result[0];
   }
   async getAllRsvps() {
-    return Array.from(this.rsvpList.values());
+    return await db.select().from(rsvps);
   }
 };
-var storage = new MemStorage();
+var storage = new DbStorage();
 
 // server/routes.ts
 import { z } from "zod";
