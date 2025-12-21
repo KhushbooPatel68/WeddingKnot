@@ -3,7 +3,6 @@ import { Hero } from "@/components/Hero";
 import { Welcome } from "@/components/Welcome";
 import { EventCard } from "@/components/EventCard";
 import { Footer } from "@/components/Footer";
-import RSVPPopup from "@/components/RSVPPopup";
 import type { Event } from "@shared/schema";
 
 import haldiImage from "@assets/generated_images/Haldi_ceremony_decoration_6832d51a.png";
@@ -49,11 +48,7 @@ const events: Event[] = [
 
 export default function Home() {
   return (
-    <>
-      {/* 🔴 RSVP POPUP – MUST BE RENDERED HERE */}
-      <RSVPPopup />
-
-      <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background">
         <Navigation />
         <Hero />
         <Welcome />
@@ -86,6 +81,5 @@ export default function Home() {
 
         <Footer />
       </div>
-    </>
   );
 }
