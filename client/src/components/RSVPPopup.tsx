@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
-
-const API_URL =
-  "https://8riq0wuyre.execute-api.ap-south-1.amazonaws.com/prod/rsvp";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
+import { Loader2 } from "lucide-react";
 
 export default function RSVPPopup() {
   const [show, setShow] = useState(false);
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     if (!localStorage.getItem("rsvp_done")) {
@@ -15,65 +21,126 @@ export default function RSVPPopup() {
   }, []);
 
   const submitRSVP = async () => {
-    if (!name || !mobile) {
-      alert("Please enter name and mobile number");
+    if (!name.trim()) {
+      toast({
+        title: "Error",
+        description: "Please enter your name",
+        variant: "destructive",
+      });
       return;
     }
 
-    const res = await fetch(API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, mobile }),
-    });
+    if (!mobile.trim()) {
+      toast({
+        title: "Error",
+        description: "Please enter your mobile number",
+        variant: "destructive",
+      });
+      return;
+    }
 
-    const data = await res.json();
-    alert(data.message);
+    setLoading(true);
+    try {
+      const res = await fetch("/api/rsvp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name.trim(), mobile: mobile.trim() }),
+      });
 
-    localStorage.setItem("rsvp_done", "true");
-    setShow(false);
+      const data = await res.json();
+
+      if (data.success) {
+        toast({
+          title: "Success",
+          description: data.message,
+        });
+        localStorage.setItem("rsvp_done", "true");
+        setSubmitted(true);
+        setTimeout(() => {
+          setShow(false);
+        }, 500);
+      } else {
+        toast({
+          title: "Error",
+          description: data.message || "Failed to submit RSVP",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Network error. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
-  if (!show) return null;
-
   return (
-    <div style={overlayStyle}>
-      <div style={popupStyle}>
-        <h2>RSVP</h2>
+    <Dialog open={show} onOpenChange={(newOpen) => {
+      // Only allow closing after successful submission
+      if (!newOpen && !submitted) {
+        return; // Prevent closing without RSVP
+      }
+      setShow(newOpen);
+    }}>
+      <DialogContent className="sm:max-w-md" aria-describedby="rsvp-description">
+        <DialogHeader>
+          <DialogTitle className="text-2xl font-playfair text-center">
+            RSVP
+          </DialogTitle>
+        </DialogHeader>
+        <div id="rsvp-description" className="sr-only">
+          RSVP form to confirm your attendance at the wedding
+        </div>
+        <div className="space-y-4 py-4">
+          <div className="space-y-2">
+            <Label htmlFor="name" className="text-sm font-medium">
+              Your Name
+            </Label>
+            <Input
+              id="name"
+              placeholder="Enter your full name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              disabled={loading}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  submitRSVP();
+                }
+              }}
+            />
+          </div>
 
-        <input
-          placeholder="Your Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
+          <div className="space-y-2">
+            <Label htmlFor="mobile" className="text-sm font-medium">
+              Mobile Number
+            </Label>
+            <Input
+              id="mobile"
+              placeholder="+1 (555) 000-0000"
+              value={mobile}
+              onChange={(e) => setMobile(e.target.value)}
+              disabled={loading}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  submitRSVP();
+                }
+              }}
+            />
+          </div>
 
-        <input
-          placeholder="Mobile (+91...)"
-          value={mobile}
-          onChange={(e) => setMobile(e.target.value)}
-        />
-
-        <button onClick={submitRSVP}>Submit</button>
-      </div>
-    </div>
+          <Button
+            onClick={submitRSVP}
+            disabled={loading}
+            className="w-full mt-6"
+          >
+            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {loading ? "Submitting..." : "Submit RSVP"}
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
-
-const overlayStyle: React.CSSProperties = {
-  position: "fixed",
-  inset: 0,
-  background: "rgba(0,0,0,0.6)",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  zIndex: 999999,
-};
-
-const popupStyle: React.CSSProperties = {
-  background: "#fff",
-  padding: "24px",
-  borderRadius: "8px",
-  width: "320px",
-  display: "flex",
-  flexDirection: "column",
-  gap: "10px",
-};
