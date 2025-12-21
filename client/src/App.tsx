@@ -3,6 +3,7 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+
 import Home from "@/pages/Home";
 import Photos from "@/pages/Photos";
 import Events from "@/pages/Events";
@@ -10,8 +11,10 @@ import EventDetailPage from "@/pages/EventDetail";
 import Travel from "@/pages/Travel";
 import ThingsToDo from "@/pages/ThingsToDo";
 import NotFound from "@/pages/not-found";
+
 import RSVPPopup from "./components/RSVPPopup";
 
+/* ---------------- Router ---------------- */
 
 function Router() {
   return (
@@ -27,20 +30,20 @@ function Router() {
   );
 }
 
+/* ---------------- App ---------------- */
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
+      {/* 🔴 RSVP POPUP MUST BE OUTSIDE TOOLTIP PROVIDER */}
+      <RSVPPopup />
+
       <TooltipProvider>
         <Toaster />
-
-        {/* 🔹 ADD THIS LINE */}
-        <RSVPPopup />
-
         <Router />
       </TooltipProvider>
     </QueryClientProvider>
   );
 }
-
 
 export default App;
