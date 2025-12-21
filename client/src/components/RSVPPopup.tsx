@@ -20,6 +20,15 @@ export default function RSVPPopup() {
     }
   }, []);
 
+  useEffect(() => {
+    if (submitted) {
+      const timer = setTimeout(() => {
+        setShow(false);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [submitted]);
+
   const submitRSVP = async () => {
     if (!name.trim()) {
       toast({
@@ -56,9 +65,6 @@ export default function RSVPPopup() {
         });
         localStorage.setItem("rsvp_done", "true");
         setSubmitted(true);
-        setTimeout(() => {
-          setShow(false);
-        }, 500);
       } else {
         toast({
           title: "Error",
@@ -67,6 +73,7 @@ export default function RSVPPopup() {
         });
       }
     } catch (error) {
+      console.error("RSVP submission error:", error);
       toast({
         title: "Error",
         description: "Network error. Please try again.",
@@ -78,13 +85,7 @@ export default function RSVPPopup() {
   };
 
   return (
-    <Dialog open={show} onOpenChange={(newOpen) => {
-      // Only allow closing after successful submission
-      if (!newOpen && !submitted) {
-        return; // Prevent closing without RSVP
-      }
-      setShow(newOpen);
-    }}>
+    <Dialog open={show} onOpenChange={setShow}>
       <DialogContent className="sm:max-w-md" aria-describedby="rsvp-description">
         <DialogHeader>
           <DialogTitle className="text-2xl font-playfair text-center">
