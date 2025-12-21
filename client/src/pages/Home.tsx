@@ -3,6 +3,7 @@ import { Hero } from "@/components/Hero";
 import { Welcome } from "@/components/Welcome";
 import { EventCard } from "@/components/EventCard";
 import { Footer } from "@/components/Footer";
+import RSVPPopup from "@/components/RSVPPopup";
 import type { Event } from "@shared/schema";
 
 import haldiImage from "@assets/generated_images/Haldi_ceremony_decoration_6832d51a.png";
@@ -32,7 +33,8 @@ const events: Event[] = [
     name: "Sangeet",
     date: "Friday, February 13, 2026",
     time: "9:00 PM – 12:00 AM",
-    attire: "Whatever your Heart Tells, Just don't forget to Bring your Dancing Moves",
+    attire:
+      "Whatever your Heart Tells, Just don't forget to Bring your Dancing Moves",
     image: sangeetImage,
   },
   {
@@ -47,31 +49,43 @@ const events: Event[] = [
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      <Hero />
-      <Welcome />
-      
-      <section className="py-20 md:py-32 px-6" data-testid="section-events">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16 space-y-4">
-            <h2 className="text-4xl md:text-5xl font-playfair font-semibold text-foreground" data-testid="text-events-title">
-              Our Celebrations
-            </h2>
-            <p className="text-base md:text-lg font-montserrat text-muted-foreground max-w-2xl mx-auto">
-              Join us for a week of joyous ceremonies, each one celebrating love, tradition, and togetherness
-            </p>
-          </div>
+    <>
+      {/* 🔴 RSVP POPUP – MUST BE RENDERED HERE */}
+      <RSVPPopup />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {events.map((event) => (
-              <EventCard key={event.id} event={event} />
-            ))}
-          </div>
-        </div>
-      </section>
+      <div className="min-h-screen bg-background">
+        <Navigation />
+        <Hero />
+        <Welcome />
 
-      <Footer />
-    </div>
+        <section
+          className="py-20 md:py-32 px-6"
+          data-testid="section-events"
+        >
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16 space-y-4">
+              <h2
+                className="text-4xl md:text-5xl font-playfair font-semibold text-foreground"
+                data-testid="text-events-title"
+              >
+                Our Celebrations
+              </h2>
+              <p className="text-base md:text-lg font-montserrat text-muted-foreground max-w-2xl mx-auto">
+                Join us for a week of joyous ceremonies, each one celebrating
+                love, tradition, and togetherness
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {events.map((event) => (
+                <EventCard key={event.id} event={event} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <Footer />
+      </div>
+    </>
   );
 }
