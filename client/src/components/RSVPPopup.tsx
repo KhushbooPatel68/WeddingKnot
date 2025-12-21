@@ -8,7 +8,12 @@ export default function RSVPPopup() {
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
 
+  // 🔍 DEBUG: confirm component mounts
+  console.log("RSVP COMPONENT RENDERED");
+
   useEffect(() => {
+    console.log("RSVP useEffect ran");
+
     if (!localStorage.getItem("rsvp_done")) {
       setShow(true);
     }
@@ -58,22 +63,24 @@ export default function RSVPPopup() {
   );
 }
 
+/* 🔴 VERY HIGH Z-INDEX (fixes shadcn / tooltip conflicts) */
 const overlayStyle: React.CSSProperties = {
   position: "fixed",
   inset: 0,
-  background: "rgba(0,0,0,0.6)",
+  background: "rgba(0,0,0,0.7)",
   display: "flex",
-  justifyContent: "center",
   alignItems: "center",
-  zIndex: 1000,
+  justifyContent: "center",
+  zIndex: 999999,
 };
 
 const popupStyle: React.CSSProperties = {
-  background: "#fff",
+  background: "#ffffff",
   padding: "24px",
   borderRadius: "8px",
-  width: "300px",
+  width: "320px",
   display: "flex",
   flexDirection: "column",
   gap: "10px",
+  zIndex: 1000000,
 };
