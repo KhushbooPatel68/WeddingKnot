@@ -1,6 +1,6 @@
-import { type User, type InsertUser, type Rsvp, type InsertRsvp, rsvps } from "@shared/schema";
-import { randomUUID } from "crypto";
+import { type User, type InsertUser, type Rsvp, type InsertRsvp, rsvps, users } from "@shared/schema";
 import { db } from "./db";
+import { eq } from "drizzle-orm";
 
 // modify the interface with any CRUD methods
 // you might need
@@ -13,46 +13,30 @@ export interface IStorage {
   getAllRsvps(): Promise<Rsvp[]>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<string, User>;
-  private rsvpList: Map<string, Rsvp>;
-
-  constructor() {
-    this.users = new Map();
-    this.rsvpList = new Map();
-  }
-
+export class DbStorage implements IStorage {
   async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
+    const result = await db.select().from(users).where(eq(users.id, id));
+    return result[0];
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+    const result = await db.select().from(users).where(eq(users.username, username));
+    return result[0];
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
-    const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+    const result = await db.insert(users).values(insertUser).returning();
+    return result[0];
   }
 
   async createRsvp(rsvp: InsertRsvp): Promise<Rsvp> {
-    const id = randomUUID();
-    const newRsvp: Rsvp = {
-      ...rsvp,
-      id,
-      createdAt: new Date(),
-    };
-    this.rsvpList.set(id, newRsvp);
-    return newRsvp;
+    const result = await db.insert(rsvps).values(rsvp).returning();
+    return result[0];
   }
 
   async getAllRsvps(): Promise<Rsvp[]> {
-    return Array.from(this.rsvpList.values());
+    return await db.select().from(rsvps);
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DbStorage();
