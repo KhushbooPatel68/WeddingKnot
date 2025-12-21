@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -86,15 +86,15 @@ export default function RSVPPopup() {
 
   return (
     <Dialog open={show} onOpenChange={setShow}>
-      <DialogContent className="sm:max-w-md" aria-describedby="rsvp-description">
+      <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="text-2xl font-playfair text-center">
             RSVP
           </DialogTitle>
+          <DialogDescription>
+            Confirm your attendance at the wedding
+          </DialogDescription>
         </DialogHeader>
-        <div id="rsvp-description" className="sr-only">
-          RSVP form to confirm your attendance at the wedding
-        </div>
         <div className="space-y-4 py-4">
           <div className="space-y-2">
             <Label htmlFor="name" className="text-sm font-medium">
