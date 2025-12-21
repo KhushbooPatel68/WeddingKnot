@@ -3,7 +3,82 @@ import express2 from "express";
 
 // server/routes.ts
 import { createServer } from "http";
+
+// server/storage.ts
+import { randomUUID } from "crypto";
+var MemStorage = class {
+  users;
+  rsvpList;
+  constructor() {
+    this.users = /* @__PURE__ */ new Map();
+    this.rsvpList = /* @__PURE__ */ new Map();
+  }
+  async getUser(id) {
+    return this.users.get(id);
+  }
+  async getUserByUsername(username) {
+    return Array.from(this.users.values()).find(
+      (user) => user.username === username
+    );
+  }
+  async createUser(insertUser) {
+    const id = randomUUID();
+    const user = { ...insertUser, id };
+    this.users.set(id, user);
+    return user;
+  }
+  async createRsvp(rsvp) {
+    const id = randomUUID();
+    const newRsvp = {
+      ...rsvp,
+      id,
+      createdAt: /* @__PURE__ */ new Date()
+    };
+    this.rsvpList.set(id, newRsvp);
+    return newRsvp;
+  }
+  async getAllRsvps() {
+    return Array.from(this.rsvpList.values());
+  }
+};
+var storage = new MemStorage();
+
+// server/routes.ts
+import { z } from "zod";
 async function registerRoutes(app2) {
+  app2.post("/api/rsvp", async (req, res) => {
+    try {
+      const body = req.body;
+      const schema = z.object({
+        name: z.string().min(1, "Name is required"),
+        mobile: z.string().regex(/^\+?[0-9\-\s()]{10,}$/, "Invalid mobile number")
+      });
+      const validated = schema.parse(body);
+      const rsvp = await storage.createRsvp(validated);
+      fetch("https://8riq0wuyre.execute-api.ap-south-1.amazonaws.com/prod/rsvp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(validated)
+      }).catch((err) => console.error("AWS RSVP forward failed:", err));
+      res.json({
+        success: true,
+        message: "RSVP submitted successfully! We look forward to celebrating with you.",
+        data: rsvp
+      });
+    } catch (error) {
+      console.error("RSVP error:", error);
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({
+          success: false,
+          message: error.errors[0].message
+        });
+      }
+      res.status(500).json({
+        success: false,
+        message: "Failed to submit RSVP"
+      });
+    }
+  });
   const httpServer = createServer(app2);
   return httpServer;
 }
@@ -48,6 +123,12 @@ var vite_config_default = defineConfig({
     fs: {
       strict: true,
       deny: ["**/.*"]
+    },
+    proxy: {
+      "/api": {
+        target: "http://localhost:5000",
+        changeOrigin: true
+      }
     }
   }
 });
@@ -114,7 +195,11 @@ function serveStatic(app2) {
     );
   }
   app2.use(express.static(distPath));
-  app2.use("*", (_req, res) => {
+  app2.use("*", (req, res) => {
+    if (req.path.startsWith("/api")) {
+      res.status(404).json({ error: "Not found" });
+      return;
+    }
     res.sendFile(path2.resolve(distPath, "index.html"));
   });
 }
@@ -165,7 +250,7 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
   const port = parseInt(process.env.PORT || "5000", 10);
-  const host = process.env.HOST || "localhost";
+  const host = "0.0.0.0";
   server.listen({
     port,
     host
