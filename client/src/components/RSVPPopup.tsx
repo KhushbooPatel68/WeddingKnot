@@ -1,10 +1,17 @@
 import { useEffect, useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
+import { API_BASE_URL } from "@/config/api";
 
 export default function RSVPPopup() {
   const [show, setShow] = useState(false);
@@ -49,19 +56,29 @@ export default function RSVPPopup() {
     }
 
     setLoading(true);
+
     try {
-      const res = await fetch("/api/rsvp", {
+      const res = await fetch(`${VITE_API_URL}/rsvp`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name.trim(), mobile: mobile.trim() }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name.trim(),
+          mobile: mobile.trim(),
+        }),
       });
+
+      if (!res.ok) {
+        throw new Error("Failed to submit RSVP");
+      }
 
       const data = await res.json();
 
       if (data.success) {
         toast({
           title: "Success",
-          description: data.message,
+          description: data.message || "RSVP submitted successfully",
         });
         localStorage.setItem("rsvp_done", "true");
         setSubmitted(true);
@@ -95,6 +112,7 @@ export default function RSVPPopup() {
             Confirm your attendance at the wedding
           </DialogDescription>
         </DialogHeader>
+
         <div className="space-y-4 py-4">
           <div className="space-y-2">
             <Label htmlFor="name" className="text-sm font-medium">
@@ -107,9 +125,7 @@ export default function RSVPPopup() {
               onChange={(e) => setName(e.target.value)}
               disabled={loading}
               onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  submitRSVP();
-                }
+                if (e.key === "Enter") submitRSVP();
               }}
             />
           </div>
@@ -120,14 +136,12 @@ export default function RSVPPopup() {
             </Label>
             <Input
               id="mobile"
-              placeholder="+1 (555) 000-0000"
+              placeholder="+91 9XXXXXXXXX"
               value={mobile}
               onChange={(e) => setMobile(e.target.value)}
               disabled={loading}
               onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  submitRSVP();
-                }
+                if (e.key === "Enter") submitRSVP();
               }}
             />
           </div>
