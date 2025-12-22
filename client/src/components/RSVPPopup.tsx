@@ -58,7 +58,8 @@ export default function RSVPPopup() {
     setLoading(true);
 
     try {
-      const res = await fetch(`${VITE_API_URL}/rsvp`, {
+      const API_BASE_URL = import.meta.env.VITE_API_URL;
+      const res = await fetch(`${API_BASE_URL}/rsvp`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
