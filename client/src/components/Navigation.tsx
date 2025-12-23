@@ -36,6 +36,16 @@ export function Navigation() {
                 </Link>
               </Button>
             ))}
+
+            {/* RSVP button in top menu */}
+            <Button
+              variant="secondary"
+              className="uppercase text-xs tracking-wide font-montserrat"
+              onClick={() => window.dispatchEvent(new CustomEvent('open-rsvp'))}
+              data-testid="link-rsvp"
+            >
+              RSVP
+            </Button>
           </div>
 
           <Button
@@ -71,6 +81,19 @@ export function Navigation() {
                 </Link>
               </Button>
             ))}
+
+            {/* RSVP in mobile menu */}
+            <Button
+              variant="secondary"
+              className="w-full justify-start uppercase text-xs tracking-wide font-montserrat"
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                window.dispatchEvent(new CustomEvent('open-rsvp'));
+              }}
+              data-testid="mobile-link-rsvp"
+            >
+              RSVP
+            </Button>
           </div>
         </div>
       )}

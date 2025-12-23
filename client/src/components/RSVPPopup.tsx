@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   Dialog,
   DialogContent,
@@ -20,21 +20,39 @@ export default function RSVPPopup() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [message, setMessage] = useState<null | { type: "success" | "warning" | "error"; text: string }>(null);
+  const closeTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!localStorage.getItem("rsvp_done")) {
       setShow(true);
     }
+
+    // listen for external open requests (e.g., top nav button)
+    const onOpen = () => setShow(true);
+    window.addEventListener("open-rsvp", onOpen as EventListener);
+    return () => {
+      window.removeEventListener("open-rsvp", onOpen as EventListener);
+    };
   }, []);
 
   useEffect(() => {
     if (submitted) {
       const timer = setTimeout(() => {
         setShow(false);
-      }, 1000);
+      }, 2000);
       return () => clearTimeout(timer);
     }
   }, [submitted]);
+
+  // clear any pending close timer when component unmounts
+  useEffect(() => {
+    return () => {
+      if (closeTimerRef.current) {
+        clearTimeout(closeTimerRef.current);
+        closeTimerRef.current = null;
+      }
+    };
+  }, []);
 
   // Clear inline message when inputs change
   useEffect(() => {
@@ -91,6 +109,15 @@ export default function RSVPPopup() {
           localStorage.setItem("rsvp_done", "true");
           setSubmitted(true);
         }
+
+        // ensure popup closes after 2s even if `submitted` state was already true
+        if (closeTimerRef.current) {
+          clearTimeout(closeTimerRef.current);
+        }
+        closeTimerRef.current = window.setTimeout(() => {
+          setShow(false);
+          closeTimerRef.current = null;
+        }, 2000);
       } else {
         // Server returned an error (validation or other). Show inline destructive message and keep popup open
         setMessage({ type: "error", text: data.message || "Failed to submit RSVP" });
