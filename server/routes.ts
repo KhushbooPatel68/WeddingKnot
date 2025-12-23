@@ -18,6 +18,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const validated = schema.parse(body);
 
+      // Check for existing RSVP by mobile
+      const existing = await storage.getRsvpByMobile(validated.mobile);
+      if (existing) {
+        // If already registered, return success=true so UI can show friendly message and close popup
+        return res.json({
+          success: true,
+          message: "Already registered",
+          data: existing,
+        });
+      }
+
       // Store RSVP locally
       const rsvp = await storage.createRsvp(validated);
 

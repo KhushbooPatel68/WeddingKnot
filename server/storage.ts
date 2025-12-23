@@ -11,6 +11,8 @@ export interface IStorage {
   createUser(user: InsertUser): Promise<User>;
   createRsvp(rsvp: InsertRsvp): Promise<Rsvp>;
   getAllRsvps(): Promise<Rsvp[]>;
+  // Returns RSVP by mobile number if present
+  getRsvpByMobile(mobile: string): Promise<Rsvp | undefined>;
 }
 
 export class DbStorage implements IStorage {
@@ -31,6 +33,11 @@ export class DbStorage implements IStorage {
 
   async createRsvp(rsvp: InsertRsvp): Promise<Rsvp> {
     const result = await db.insert(rsvps).values(rsvp).returning();
+    return result[0];
+  }
+
+  async getRsvpByMobile(mobile: string): Promise<Rsvp | undefined> {
+    const result = await db.select().from(rsvps).where(eq(rsvps.mobile, mobile));
     return result[0];
   }
 

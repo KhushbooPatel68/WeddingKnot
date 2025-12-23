@@ -58,7 +58,7 @@ export default function RSVPPopup() {
     setLoading(true);
 
     try {
-      const API_BASE_URL = import.meta.env.VITE_API_URL;
+      // use API_BASE_URL imported from config
       const res = await fetch(`${API_BASE_URL}/rsvp`, {
         method: "POST",
         headers: {
@@ -70,13 +70,10 @@ export default function RSVPPopup() {
         }),
       });
 
-      if (!res.ok) {
-        throw new Error("Failed to submit RSVP");
-      }
+      // Parse body even for non-OK responses (for validation errors)
+      const data = await res.json().catch(() => ({}));
 
-      const data = await res.json();
-
-      if (data.success) {
+      if (res.ok && data.success) {
         toast({
           title: "Success",
           description: data.message || "RSVP submitted successfully",
@@ -84,6 +81,7 @@ export default function RSVPPopup() {
         localStorage.setItem("rsvp_done", "true");
         setSubmitted(true);
       } else {
+        // Server returned an error (validation or other). Show destructive toast and keep popup open
         toast({
           title: "Error",
           description: data.message || "Failed to submit RSVP",
