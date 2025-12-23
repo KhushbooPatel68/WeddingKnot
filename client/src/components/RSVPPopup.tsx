@@ -98,14 +98,17 @@ export default function RSVPPopup() {
       // Parse body even for non-OK responses (for validation errors)
       const data = await res.json().catch(() => ({}));
 
-      if (res.ok && data.success) {
-        // differentiate already-registered vs new success
-        if (data.message && data.message.toLowerCase().includes("already")) {
-          setMessage({ type: "warning", text: data.message });
+      // Treat 200 responses from Lambda (even without `success` flag) as success
+      if (res.status === 200) {
+        const msg = (data.message || "").toString();
+        if (msg.toLowerCase().includes("already")) {
+          // Already registered -> yellow warning
+          setMessage({ type: "warning", text: "RSVP already registered" });
           localStorage.setItem("rsvp_done", "true");
           setSubmitted(true);
         } else {
-          setMessage({ type: "success", text: data.message || "RSVP submitted successfully" });
+          // Success -> green message (use the requested friendly text)
+          setMessage({ type: "success", text: "RSVP submitted successfully! We look forward to celebrating with you." });
           localStorage.setItem("rsvp_done", "true");
           setSubmitted(true);
         }
@@ -118,6 +121,7 @@ export default function RSVPPopup() {
           setShow(false);
           closeTimerRef.current = null;
         }, 2000);
+
       } else {
         // Server returned an error (validation or other). Show inline destructive message and keep popup open
         setMessage({ type: "error", text: data.message || "Failed to submit RSVP" });
