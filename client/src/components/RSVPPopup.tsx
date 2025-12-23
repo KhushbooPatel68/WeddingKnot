@@ -20,6 +20,7 @@ export default function RSVPPopup() {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [message, setMessage] = useState<null | { type: "success" | "warning" | "error"; text: string }>(null);
+  const [countryCode, setCountryCode] = useState("+91");
   const closeTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -60,7 +61,7 @@ export default function RSVPPopup() {
       setMessage(null);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name, mobile]);
+  }, [name, mobile, countryCode]);
 
   const submitRSVP = async () => {
     // client-side validation: name required
@@ -83,6 +84,10 @@ export default function RSVPPopup() {
     setLoading(true);
 
     try {
+      // build mobile with selected country code and cleaned digits
+      const cc = countryCode.startsWith("+") ? countryCode : `+${countryCode}`;
+      const mobileToSend = `${cc}${digits}`;
+
       // use API_BASE_URL imported from config
       const res = await fetch(`${API_BASE_URL}/rsvp`, {
         method: "POST",
@@ -91,7 +96,7 @@ export default function RSVPPopup() {
         },
         body: JSON.stringify({
           name: name.trim(),
-          mobile: `+${digits}`,
+          mobile: mobileToSend,
         }),
       });
 
@@ -179,16 +184,36 @@ export default function RSVPPopup() {
             <Label htmlFor="mobile" className="text-sm font-medium">
               Mobile Number
             </Label>
-            <Input
-              id="mobile"
-              placeholder="+91 9XXXXXXXXX"
-              value={mobile}
-              onChange={(e) => setMobile(e.target.value)}
-              disabled={loading}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") submitRSVP();
-              }}
-            />
+
+            <div className="flex gap-2">
+              <select
+                aria-label="Country code"
+                value={countryCode}
+                onChange={(e) => setCountryCode(e.target.value)}
+                disabled={loading}
+                className="rounded-md border px-3 py-2 text-sm bg-white"
+              >
+                <option value="+91">+91</option>
+                <option value="+1">+1</option>
+                <option value="+44">+44</option>
+                <option value="+61">+61</option>
+                <option value="+81">+81</option>
+              </select>
+
+              <Input
+                id="mobile"
+                placeholder="9876543210"
+                value={mobile}
+                onChange={(e) => setMobile(e.target.value)}
+                disabled={loading}
+                className="flex-1"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") submitRSVP();
+                }}
+              />
+            </div>
+
+            <p className="text-xs text-muted-foreground">Include only the local number, country code will be prefixed automatically.</p>
           </div>
 
           <Button
