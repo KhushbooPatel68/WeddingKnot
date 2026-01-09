@@ -105,13 +105,17 @@ const events: Record<string, Event> = {
     host: "Warm regards,\nAtul Patel & Family",
     image: baaratImage,
   },
-  "wedding": {
+    "wedding": {
     id: "wedding",
     name: "Wedding Ceremony",
     date: "Saturday, February 14, 2026",
     time: "3:00 PM – 6:00 PM",
     attire: "Formal Indian Wedding Attire",
     description: "The sacred moment when two souls unite. Witness Rohan and Hany exchange vows under the beautiful mandap, surrounded by love, blessings, and sacred rituals.",
+    fullDescription: "💒 The Sacred Wedding Ceremony 💒\n\nVows • Unity • Forever Begins\n\nThe sacred moment when two souls unite in the presence of loved ones and divine blessings. Witness Rohan and Hany exchange vows under the beautiful mandap, surrounded by love, blessings, and sacred rituals.\n\nThis is the pinnacle of our celebrations—a moment where tradition meets love, and two families become one. Join us as we celebrate this beautiful union with heartfelt ceremonies, joyous laughter, and cherished memories.\n\nLet us witness the beginning of a beautiful forever! 🌟✨",
+    venue: "A/9 Balaji Nagar, Himgiri Society, Piplod, Surat, Gujarat 395007",
+    address: "Philippe Villa, A/13, behind Lakeview Restaurant, Balaji Nagar, Himgiri Society, Piplod, Surat, Gujarat 395007",
+    host: "Warm regards,\nAtul Patel & Family",
     image: weddingImage,
   },
 };
