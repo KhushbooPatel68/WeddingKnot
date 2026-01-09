@@ -40,9 +40,17 @@ const events: Event[] = [
     id: "baarat",
     name: "Baarat",
     date: "Saturday, February 14, 2026",
-    time: "6:00 PM – 12:00 AM",
+    time: "5:00 PM – 8:00 PM",
     attire: "Traditional Indian Wedding Attire",
     image: baaratImage,
+  },
+  {
+    id: "wedding",
+    name: "Wedding Ceremony",
+    date: "Saturday, February 14, 2026",
+    time: "8:00 PM – 12:00 AM",
+    attire: "Formal Indian Wedding Attire",
+    image: weddingImage,
   },
 ];
 
