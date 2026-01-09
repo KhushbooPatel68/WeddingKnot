@@ -65,15 +65,15 @@ const events: Record<string, Event> = {
     host: "Atul Patel & Family",
     image: haldiImage,
   },
-  "grah-shanti": {
-    id: "grah-shanti",
-    name: "Grah Shanti",
-    date: "Friday, February 13, 2026",
-    time: "4:00 PM – 7:00 PM",
-    attire: "Indian Tradition",
-    description: "A sacred ceremony performed to invoke blessings from the divine and seek harmony for the upcoming union. This traditional ritual brings peace and prosperity.",
-    image: weddingImage,
-  },
+"grah-shanti": {
+  id: "grah-shanti",
+  name: "Grah Shanti",
+  date: "Friday, February 13, 2026",
+  time: "4:00 PM – 7:00 PM",
+  attire: "Indian Tradition",
+  description: "🌿 Grah Shanti Ceremony 🌿\n\nShanti • Shubh Aarambh • Divine Blessings\n\nBefore the wedding festivities unfold, we come together to seek peace, positivity, and divine protection for the journey ahead. Grah Shanti is a sacred ritual performed to harmonize planetary energies and invite prosperity, happiness, and well-being into the lives of the couple.\n\nJoin us for the Grah Shanti of Rohan & Hany, where heartfelt prayers, Vedic chants, and auspicious rituals will set the foundation for a blissful and harmonious married life. 🕉️✨\n\nYour presence and blessings will make this sacred beginning truly meaningful.\n\n— Warm regards,\nAtul Patel & Family",
+  image: weddingImage,
+},
   "sangeet": {
     id: "sangeet",
     name: "Sangeet",
@@ -89,13 +89,14 @@ const events: Record<string, Event> = {
     host: "Atul Patel & Family",
     image: sangeetImage,
   },
-  "baarat": {
+    "baarat": {
     id: "baarat",
     name: "Baarat",
     date: "Saturday, February 14, 2026",
     time: "6:00 PM – 12:00 AM",
     attire: "Traditional Indian Wedding Attire",
-    description: "The groom's grand procession arrives with music, dancing, and celebration. Join the baraat as we make our way to the wedding ceremony in style!",
+    description: "The groom's grand procession marks the joyful arrival of the wedding celebrations.",
+    fullDescription: "🎺 Baraat 🎺\n\nMusic • Dance • Grand Celebration\n\nThe groom's grand procession marks the joyful arrival of the wedding celebrations. Filled with lively music, energetic dancing, and festive spirit, the Baraat is a moment of pure excitement and togetherness.\n\nJoin us as the Baraat of Rohan makes its way to the wedding ceremony, celebrating love, tradition, and the beginning of a beautiful union in true festive style. 🥁✨\n\nLet the beats rise, the feet move, and the celebrations begin!\n\n— Warm regards,\nAtul Patel & Family",
     image: baaratImage,
   },
   "wedding": {
