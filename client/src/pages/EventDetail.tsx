@@ -11,7 +11,7 @@ import sangeetImage from "@assets/generated_images/Sangeet_celebration_stage_d30
 import baaratImage from "@assets/generated_images/Baarat_horse_procession_1afc7c90.png";
 import weddingImage from "@assets/generated_images/Wedding_mandap_ceremony_4bdc3e19.png";
 
-function HaldiCountdown({ isoDate }: { isoDate: string }) {
+function EventCountdown({ isoDate }: { isoDate: string }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0 });
 
   useEffect(() => {
@@ -47,7 +47,7 @@ function HaldiCountdown({ isoDate }: { isoDate: string }) {
       </div>
     </div>
   );
-}
+} 
 
 const events: Record<string, Event> = {
   "haldi": {
@@ -70,6 +70,7 @@ const events: Record<string, Event> = {
     name: "Grah Shanti",
     date: "Friday, February 13, 2026",
     time: "4:00 PM – 7:00 PM",
+    dateISO: "2026-02-13T16:00:00",
     attire: "Indian Tradition",
     description: "🌿 Grah Shanti Ceremony 🌿\n\nShanti • Shubh Aarambh • Divine Blessings\n\nBefore the wedding festivities unfold, we come together to seek peace, positivity, and divine protection for the journey ahead. Grah Shanti is a sacred ritual performed to harmonize planetary energies and invite prosperity, happiness, and well-being into the lives of the couple.\n\nJoin us for the Grah Shanti of Rohan & Hany, where heartfelt prayers, Vedic chants, and auspicious rituals will set the foundation for a blissful and harmonious married life. 🕉️✨\n\nYour presence and blessings will make this sacred beginning truly meaningful.",
     venue: "Karishma seva cheritebal Trust Tapi Maiya Cricket Ground, C-20, Magdalla Police Line, New Magdalla, Surat, Gujarat 395007",
@@ -97,6 +98,7 @@ const events: Record<string, Event> = {
     name: "Baarat",
     date: "Saturday, February 14, 2026",
     time: "6:00 PM – 12:00 AM",
+    dateISO: "2026-02-14T18:00:00",
     attire: "Traditional Indian Wedding Attire",
     description: "The groom's grand procession marks the joyful arrival of the wedding celebrations.",
     fullDescription: "🎺 Baraat 🎺\n\nMusic • Dance • Grand Celebration\n\nThe groom's grand procession marks the joyful arrival of the wedding celebrations. Filled with lively music, energetic dancing, and festive spirit, the Baraat is a moment of pure excitement and togetherness.\n\nJoin us as the Baraat of Rohan makes its way to the wedding ceremony, celebrating love, tradition, and the beginning of a beautiful union in true festive style. 🥁✨\n\nLet the beats rise, the feet move, and the celebrations begin!",
@@ -110,6 +112,7 @@ const events: Record<string, Event> = {
     name: "Wedding Ceremony",
     date: "Saturday, February 14, 2026",
     time: "3:00 PM – 6:00 PM",
+    dateISO: "2026-02-14T15:00:00",
     attire: "Formal Indian Wedding Attire",
     description: "The sacred moment when two souls unite. Witness Rohan and Hany exchange vows under the beautiful mandap, surrounded by love, blessings, and sacred rituals.",
     fullDescription: "💒 The Sacred Wedding Ceremony 💒\n\nVows • Unity • Forever Begins\n\nThe sacred moment when two souls unite in the presence of loved ones and divine blessings. Witness Rohan and Hany exchange vows under the beautiful mandap, surrounded by love, blessings, and sacred rituals.\n\nThis is the pinnacle of our celebrations—a moment where tradition meets love, and two families become one. Join us as we celebrate this beautiful union with heartfelt ceremonies, joyous laughter, and cherished memories.\n\nLet us witness the beginning of a beautiful forever! 🌟✨",
@@ -149,19 +152,20 @@ export default function EventDetailPage({ params }: { params: { eventId: string 
     <div className="min-h-screen bg-background">
       <Navigation />
 
-      {/* Haldi-specific hero (render if this event has a machine date) */}
-      {event.dateISO && event.id === "haldi" && (
+      {event.dateISO && (
         <section className="relative py-20 md:py-28 px-6 bg-[linear-gradient(0deg,#fff,#fff)]">
           <div className="max-w-6xl mx-auto text-center">
-            <h2 className="text-4xl font-playfair font-semibold text-foreground mb-2">🌼 HALDI HAI! 🌼</h2>
+            <h2 className="text-4xl font-playfair font-semibold text-foreground mb-2">
+              {event.id === "haldi" ? "🌼 HALDI HAI! 🌼" : event.name}
+            </h2>
             <h1 className="text-5xl md:text-6xl font-playfair font-bold text-foreground mb-4">Rohan & Hany</h1>
             <p className="text-lg md:text-xl font-montserrat text-muted-foreground mb-6">{event.date} • {event.time}</p>
 
             {/* Simple countdown */}
-            <HaldiCountdown isoDate={event.dateISO} />
+            <EventCountdown isoDate={event.dateISO} />
           </div>
         </section>
-      )}
+      )} 
 
       <section className="py-12 md:py-16 px-6">
         <div className="max-w-4xl mx-auto">
