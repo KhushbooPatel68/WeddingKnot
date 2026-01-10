@@ -297,7 +297,7 @@ export default function EventDetailPage({ params }: { params: { eventId: string 
             </div>
 
             {/* RSVP Section */}
-            <div className="bg-primary/10 rounded-lg p-8 text-center">
+            {/* <div className="bg-primary/10 rounded-lg p-8 text-center">
               <h3 className="text-2xl font-playfair font-semibold text-foreground mb-3">
                 Can't Wait to Celebrate!
               </h3>
@@ -325,7 +325,7 @@ export default function EventDetailPage({ params }: { params: { eventId: string 
                     Travel & Accommodations
                   </Button>
                 </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
