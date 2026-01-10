@@ -10,6 +10,7 @@ import Events from "@/pages/Events";
 import EventDetailPage from "@/pages/EventDetail";
 import Travel from "@/pages/Travel";
 import ThingsToDo from "@/pages/ThingsToDo";
+import Contact from "@/pages/Contact";
 import NotFound from "@/pages/not-found";
 
 import RSVPPopup from "./components/RSVPPopup";
@@ -27,6 +28,7 @@ function Router() {
         <Route path="/events/:eventId" component={EventDetailPage} />
         <Route path="/travel" component={Travel} />
         <Route path="/things-to-do" component={ThingsToDo} />
+        <Route path="/contact" component={Contact} />
         <Route component={NotFound} />
       </Switch>
     </>
