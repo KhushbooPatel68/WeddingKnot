@@ -23,13 +23,13 @@ const travelOptions: TravelOption[] = [
   //   phone: "+1 (555) 234-5678",
   //   website: "https://riversideresort.example.com",
   // },
-  {
-    id: "airport",
-    name: "Surat International Airport",
-    type: "transportation",
-    description: "It is located in Magdalla, situated 12 km from the city centre. The airport serves as a gateway for domestic and international travelers attending the wedding.",
-    address: "Surat - Dumas Rd, Gaviyer, Surat, Gujarat 395007",
-  },
+  // {
+  //   id: "airport",
+  //   name: "Surat International Airport",
+  //   type: "transportation",
+  //   description: "It is located in Magdalla, situated 12 km from the city centre. The airport serves as a gateway for domestic and international travelers attending the wedding.",
+  //   address: "Surat - Dumas Rd, Gaviyer, Surat, Gujarat 395007",
+  // },
   // {
   //   id: "venue",
   //   name: "Royal Gardens Wedding Venue",
