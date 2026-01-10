@@ -15,63 +15,63 @@ import engagement from "@assets/generated_images/497d05e1-4cdf-4ab2-9d6c-385b380
 import engagement1 from "@assets/generated_images/af26403a-e803-4c4c-9cb8-b9385c655ba0.JPG";
 
 const photos: Photo[] = [
-  {
-    id: "1",
-    url: couplePortrait,
-    alt: "Rohan and Hany romantic portrait",
-    category: "couple",
-  },
-  {
-    id: "2",
-    url: mehendiHands,
-    alt: "Beautiful mehendi design on bride's hands",
-    category: "details",
-  },
-  {
-    id: "3",
-    url: weddingRings,
-    alt: "Wedding rings on flower petals",
-    category: "details",
-  },
-  {
-    id: "4",
-    url: celebrationDancing,
-    alt: "Guests celebrating and dancing",
-    category: "celebration",
-  },
-  {
-    id: "5",
-    url: receptionTable,
-    alt: "Elegant reception table setting",
-    category: "decor",
-  },
-  {
-    id: "6",
-    url: haldiCeremony,
-    alt: "Haldi ceremony decoration",
-    category: "ceremony",
-  },
-  {
-    id: "7",
-    url: sangeetStage,
-    alt: "Sangeet night celebration stage",
-    category: "ceremony",
-  },
-  {
-    id: "8",
-    url: baaratHorse,
-    alt: "Baarat procession with decorated horse",
-    category: "ceremony",
-  },
+  // {
+  //   id: "1",
+  //   url: couplePortrait,
+  //   alt: "Rohan and Hany romantic portrait",
+  //   category: "couple",
+  // },
+  // {
+  //   id: "2",
+  //   url: mehendiHands,
+  //   alt: "Beautiful mehendi design on bride's hands",
+  //   category: "details",
+  // },
+  // {
+  //   id: "3",
+  //   url: weddingRings,
+  //   alt: "Wedding rings on flower petals",
+  //   category: "details",
+  // },
+  // {
+  //   id: "4",
+  //   url: celebrationDancing,
+  //   alt: "Guests celebrating and dancing",
+  //   category: "celebration",
+  // },
+  // {
+  //   id: "5",
+  //   url: receptionTable,
+  //   alt: "Elegant reception table setting",
+  //   category: "decor",
+  // },
+  // {
+  //   id: "6",
+  //   url: haldiCeremony,
+  //   alt: "Haldi ceremony decoration",
+  //   category: "ceremony",
+  // },
+  // {
+  //   id: "7",
+  //   url: sangeetStage,
+  //   alt: "Sangeet night celebration stage",
+  //   category: "ceremony",
+  // },
+  // {
+  //   id: "8",
+  //   url: baaratHorse,
+  //   alt: "Baarat procession with decorated horse",
+  //   category: "ceremony",
+  // },
     // existing photos...
   {
-    id: "9",
+    id: "1",
     url: engagement,
     alt: "Engagement couple photo",
     category: "couple",
   },
   {
-    id: "10",
+    id: "2",
     url: engagement1,
     alt: "Engagement celebration photo",
     category: "family",
