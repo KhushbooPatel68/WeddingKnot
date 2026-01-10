@@ -26,6 +26,8 @@ export default defineConfig({
       "@assets": path.resolve(import.meta.dirname, "attached_assets"),
     },
   },
+  // Include assets with uppercase extensions (e.g. .JPG) for import analysis
+  assetsInclude: [/\.(png|jpe?g|svg|gif|webp|avif)$/i],
   root: path.resolve(import.meta.dirname, "client"),
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
