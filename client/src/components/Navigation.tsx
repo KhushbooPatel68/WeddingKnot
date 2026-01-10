@@ -13,6 +13,7 @@ export function Navigation() {
     { href: "/events", label: "Events" },
     { href: "/travel", label: "Travel" },
     { href: "/things-to-do", label: "Things to Do" },
+    { href: "/contact", label: "Contact" },
   ];
 
   return (
