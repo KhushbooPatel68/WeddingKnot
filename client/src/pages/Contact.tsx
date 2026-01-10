@@ -31,9 +31,9 @@ export default function Contact() {
             </div>
           </div>
 
-          <div className="mt-10">
+          {/* <div className="mt-10">
             <Button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="px-6">Back to top</Button>
-          </div>
+          </div> */}
         </div>
       </section>
 
