@@ -14,20 +14,35 @@ export default function Contact() {
             For questions about travel, accommodations, or invitations, please contact any of the following:
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6"> 
-            <div className="bg-card rounded-lg p-6 text-left">
-              <h3 className="text-lg font-playfair font-semibold">Kush</h3>
-              <p className="font-montserrat text-muted-foreground">Phone: <a href="tel:+917820009101" className="text-primary underline">+91-7820009101</a></p>
+          <div className="space-y-8">
+            <div data-testid="section-relatives">
+              <h2 className="text-2xl font-playfair font-semibold mb-4">Relatives</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-card rounded-lg p-6 text-left" data-testid="contact-atul">
+                  <h3 className="text-lg font-playfair font-semibold">Atul (Groom's Dad)</h3>
+                  <p className="font-montserrat text-muted-foreground">Phone: <a href="tel:+919925152010" className="text-primary underline">+91-9925152010</a></p>
+                </div>
+
+                <div className="bg-card rounded-lg p-6 text-left" data-testid="contact-kush">
+                  <h3 className="text-lg font-playfair font-semibold">Kush (Groom's Brother)</h3>
+                  <p className="font-montserrat text-muted-foreground">Phone: <a href="tel:+917820009101" className="text-primary underline">+91-7820009101</a></p>
+                </div>
+              </div>
             </div>
 
-            <div className="bg-card rounded-lg p-6 text-left">
-              <h3 className="text-lg font-playfair font-semibold">Zeel</h3>
-              <p className="font-montserrat text-muted-foreground">Phone: <a href="tel:+918888888888" className="text-primary underline">+91-8888888888</a></p>
-            </div>
+            <div data-testid="section-friends">
+              <h2 className="text-2xl font-playfair font-semibold mb-4">Friends</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-card rounded-lg p-6 text-left" data-testid="contact-zeel">
+                  <h3 className="text-lg font-playfair font-semibold">Zeel</h3>
+                  <p className="font-montserrat text-muted-foreground">Phone: <a href="tel:+918888888888" className="text-primary underline">+91-8888888888</a></p>
+                </div>
 
-            <div className="bg-card rounded-lg p-6 text-left">
-              <h3 className="text-lg font-playfair font-semibold">Brijesh</h3>
-              <p className="font-montserrat text-muted-foreground">Phone: <a href="tel:+919426301980" className="text-primary underline">+91-9426301980</a></p>
+                <div className="bg-card rounded-lg p-6 text-left" data-testid="contact-brijesh">
+                  <h3 className="text-lg font-playfair font-semibold">Brijesh</h3>
+                  <p className="font-montserrat text-muted-foreground">Phone: <a href="tel:+919426301980" className="text-primary underline">+91-9426301980</a></p>
+                </div>
+              </div>
             </div>
           </div>
 
