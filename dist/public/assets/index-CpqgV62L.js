@@ -163,7 +163,7 @@ The groom's grand procession marks the joyful arrival of the wedding celebration
 Join us as the Baraat of Rohan makes its way to the wedding ceremony, celebrating love, tradition, and the beginning of a beautiful union in true festive style. 🥁✨
 
 Let the beats rise, the feet move, and the celebrations begin!`,venue:"A/9 Balaji Nagar, Himgiri Society, Piplod, Surat, Gujarat 395007",address:"Philippe Villa, A/13, behind Lakeview Restaurant, Balaji Nagar, Himgiri Society, Piplod, Surat, Gujarat 395007",host:`Warm regards,
-Atul Patel & Family`,image:wc},wedding:{id:"wedding",name:"Wedding Ceremony",date:"Saturday, February 14, 2026",time:"3:00 PM – 6:00 PM",dateISO:"2026-02-14T15:00:00",attire:"Formal Indian Wedding Attire",description:"The sacred moment when two souls unite. Witness Rohan and Hany exchange vows under the beautiful mandap, surrounded by love, blessings, and sacred rituals.",fullDescription:`💒 The Sacred Wedding Ceremony 💒
+Atul Patel & Family`,image:wc},wedding:{id:"wedding",name:"Wedding Ceremony",date:"Saturday, February 14, 2026",time:"3:00 PM – 6:00 PM",dateISO:"2026-02-14T15:00:00",attire:"Formal Indian Wedding Attire",description:"The sacred moment when two souls unite. Witness Rohan and Hany exchange vows under the beautiful mandap, surrounded by love, blessings, and sacred rituals.",fullDescription:`The Sacred Wedding Ceremony 
 
 Vows • Unity • Forever Begins
 
