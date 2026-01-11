@@ -41,6 +41,10 @@ export function Footer() {
             <p className="text-sm font-montserrat text-muted-foreground flex items-center justify-center md:justify-end gap-2" data-testid="text-footer-tagline">
               Created with <Heart className="h-4 w-4 text-primary fill-primary" /> for our special day
             </p>
+
+            <p className="text-xs font-montserrat text-muted-foreground md:text-right" data-testid="text-footer-developer">
+              Developed by <span className="font-medium">Khushboo A Patel</span> (Groom's sister)
+            </p>
           </div>
         </div>
 
