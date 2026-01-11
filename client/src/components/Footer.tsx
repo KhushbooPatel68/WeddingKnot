@@ -53,7 +53,7 @@ export function Footer() {
             © 2026 Rohan & Hany. All rights reserved.
           </p>
 
-          <p className="text-xs font-montserrat text-muted-foreground md:text-right" data-testid="text-footer-developer">
+          <p className="text-xs font-montserrat text-muted-foreground text-center mt-2" data-testid="text-footer-developer">
             Developed by <span className="font-medium">Khushboo A Patel</span> (Groom's sister)
           </p>
         </div>
