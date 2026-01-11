@@ -21,7 +21,7 @@ export function Navigation() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="text-2xl font-playfair font-bold text-primary hover-elevate active-elevate-2 px-3 py-1 rounded-md cursor-pointer flex items-center gap-2" data-testid="link-home">
-            <img src="/favicon.png" alt="Rohan & Hany" className="h-8 w-8 inline-block" />
+            <img src="/favicon-web.png" alt="Rohan & Hany" className="h-8 w-8 inline-block" />
             <span className="sr-only">Rohan & Hany</span>
           </Link>
 
