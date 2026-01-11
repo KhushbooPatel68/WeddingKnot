@@ -15,9 +15,9 @@ export function Welcome() {
           <p className="text-base md:text-lg font-montserrat leading-relaxed text-card-foreground" data-testid="text-welcome-message">
             The festivities have begun,
             and we're beyond thrilled to have you join us
-            as we celebrate the magical union of
+            as we celebrate the magical union of <br/>
             <span className="font-playfair font-semibold text-primary"> Rohan & Hany </span>
-            with a week full of joy, rituals, music, colour, and unforgettable memories!
+            <br/>with a week full of joy, rituals, music, colour, and unforgettable memories!
           </p>
           <p className="text-base md:text-lg font-montserrat leading-relaxed text-card-foreground mt-6">
             Get ready for a vibrant journey through traditions and total masti—
