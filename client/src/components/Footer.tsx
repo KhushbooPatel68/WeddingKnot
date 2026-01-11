@@ -42,15 +42,19 @@ export function Footer() {
               Created with <Heart className="h-4 w-4 text-primary fill-primary" /> for our special day
             </p>
 
-            <p className="text-xs font-montserrat text-muted-foreground md:text-right" data-testid="text-footer-developer">
+            {/* <p className="text-xs font-montserrat text-muted-foreground md:text-right" data-testid="text-footer-developer">
               Developed by <span className="font-medium">Khushboo A Patel</span> (Groom's sister)
-            </p>
+            </p> */}
           </div>
         </div>
 
         <div className="mt-12 pt-8 border-t text-center">
           <p className="text-xs font-montserrat text-muted-foreground" data-testid="text-footer-copyright">
             © 2026 Rohan & Hany. All rights reserved.
+          </p>
+
+          <p className="text-xs font-montserrat text-muted-foreground md:text-right" data-testid="text-footer-developer">
+            Developed by <span className="font-medium">Khushboo A Patel</span> (Groom's sister)
           </p>
         </div>
       </div>
