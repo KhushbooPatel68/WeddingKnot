@@ -8,17 +8,24 @@ import type { Activity } from "@shared/schema";
 const activities: Activity[] = [
   {
     id: "restaurant-1",
-    name: "Spice Villa Restaurant",
-    category: "food",
-    description: "Stylish multi-cuisine restaurant known for its flavorful Indian, Chinese, Mexican, and continental dishes, welcoming ambiance, and attentive service.",
-    address: "Dumas Rd, behind Iscon Mall, Piplod, Surat, Gujarat 395007",
-  },
-  {
-    id: "restaurant-2",
     name: "Shreeji Locho House",
     category: "food",
     description: "Soft, spicy, and packed with flavor — a legendary snack that melts in every bite. A must-try for anyone visiting Surat!",
     address: "1B, City Light Rd, Shringar Society, City Light Town, Athwa, Surat, Gujarat 395007",
+  },
+  {
+    id: "restaurant-2",
+    name: "Lijjat Khawsa Center",
+    category: "food",
+    description: "A popular stop for hot, flavorful Burmese-style khawsa served Surat-style. Comforting, rich, and always satisfying!",
+    address: "20/3/14, Parsiwad Rd, Rander, Surat, Gujarat 395005",
+  },
+  {
+    id: "restaurant-3",
+    name: "Lijjat Khawsa Center",
+    category: "food",
+    description: "A popular stop for hot, flavorful Burmese-style khawsa served Surat-style. Comforting, rich, and always satisfying!",
+    address: "20/3/14, Parsiwad Rd, Rander, Surat, Gujarat 395005",
   },
   {
     id: "attraction-1",
