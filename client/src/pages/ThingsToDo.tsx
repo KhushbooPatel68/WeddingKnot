@@ -25,7 +25,7 @@ const activities: Activity[] = [
     name: "Mehul's Fast-Food Alupuri & Khavsa",
     category: "food",
     description: "Known for its signature alupuri and creamy Surti-style khawsa — a beloved local stop for warm, flavorful street bites.",
-    address: "https://maps.app.goo.gl/puscQeTYu52hAJ5r6",
+    address: "A 1 VAISHNO DEVI COMPLEX, BESIDE WOKS WEGON SHOW ROOM NEAR 51 RAINBOW ICE DREA, Gujarat 395007",
   },
   {
     id: "attraction-1",
