@@ -22,10 +22,10 @@ const activities: Activity[] = [
   },
   {
     id: "restaurant-3",
-    name: "Lijjat Khawsa Center",
+    name: "Mehul's Fast-Food Alupuri & Khavsa",
     category: "food",
-    description: "A popular stop for hot, flavorful Burmese-style khawsa served Surat-style. Comforting, rich, and always satisfying!",
-    address: "20/3/14, Parsiwad Rd, Rander, Surat, Gujarat 395005",
+    description: "Known for its signature alupuri and creamy Surti-style khawsa — a beloved local stop for warm, flavorful street bites.",
+    address: "https://maps.app.goo.gl/puscQeTYu52hAJ5r6",
   },
   {
     id: "attraction-1",
