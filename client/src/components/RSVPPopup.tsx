@@ -8,14 +8,15 @@ export default function RSVPPopup() {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
-  const [attending, setAttending] = useState<"yes" | "no">("yes");
-  const [guestCount, setGuestCount] = useState(1);
-  const [whatsappOptIn, setWhatsappOptIn] = useState(false);
+  const [countryCode, setCountryCode] = useState("+91");
   const [loading, setLoading] = useState(false);
 
-  // Open automatically on first visit if not already registered/submitted
+  // Skip popup if already RSVP'd with stored number
   useEffect(() => {
-    if (!localStorage.getItem("rsvp_done")) {
+    const done = localStorage.getItem("rsvp_done");
+    const savedMobile = localStorage.getItem("rsvp_mobile");
+
+    if (!done || !savedMobile) {
       setOpen(true);
     }
 
@@ -24,33 +25,51 @@ export default function RSVPPopup() {
     return () => window.removeEventListener("open-rsvp", handler as EventListener);
   }, []);
 
+  const validatePhone = () => {
+    const len = mobile.length;
+
+    switch (countryCode) {
+      case "+91": // India
+      case "+1": // USA
+        return len === 10;
+
+      case "+44": // UK
+        return len >= 10 && len <= 11;
+
+      case "+971": // UAE
+      case "+61": // AUS
+        return len === 9;
+
+      case "+65": // Singapore
+        return len === 8;
+
+      default:
+        return len > 5; // fallback
+    }
+  };
+
   const handleSubmit = async () => {
     if (!name || !mobile) {
-      alert("Please fill all required fields.");
+      alert("Please enter your name and phone number.");
       return;
     }
 
-    if (!whatsappOptIn) {
-      alert(
-        "Please consent to receive WhatsApp updates to complete your RSVP."
-      );
+    if (!validatePhone()) {
+      alert(`Invalid phone number format for ${countryCode}.`);
       return;
     }
+
+    const combinedMobile = `${countryCode}${mobile}`;
 
     setLoading(true);
 
     try {
       const response = await fetch("/api/rsvp", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name,
-          mobile,
-          attending: attending === "yes",
-          guestCount,
-          whatsapp_opt_in: whatsappOptIn,
+          mobile: combinedMobile,
         }),
       });
 
@@ -60,15 +79,14 @@ export default function RSVPPopup() {
         throw new Error(data?.message || "RSVP submission failed");
       }
 
-      // Mark as done so we don't show the popup again
       localStorage.setItem("rsvp_done", "true");
-      localStorage.setItem("rsvp_mobile", mobile);
+      localStorage.setItem("rsvp_mobile", combinedMobile);
 
       alert(data.message || "RSVP submitted successfully! 🎉");
       setOpen(false);
-    } catch (error) {
-      console.error(error);
-      alert((error as Error).message || "Something went wrong. Please try again.");
+    } catch (err) {
+      console.error(err);
+      alert((err as Error).message || "Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -77,7 +95,9 @@ export default function RSVPPopup() {
   return (
     <Dialog open={open} onOpenChange={(isOpen) => setOpen(isOpen)}>
       <DialogContent className="sm:max-w-md" data-testid="dialog-rsvp">
-        <h2 className="text-xl font-semibold text-center mb-4">RSVP Confirmation</h2>
+        <h2 className="text-xl font-semibold text-center mb-4">
+          RSVP Confirmation
+        </h2>
 
         {/* Name */}
         <div className="space-y-1">
@@ -88,85 +108,39 @@ export default function RSVPPopup() {
             onChange={(e) => setName(e.target.value)}
             placeholder="Your name"
             required
-            data-testid="input-rsvp-name"
           />
         </div>
 
-        {/* Mobile */}
+        {/* Phone Number */}
         <div className="space-y-1 mt-3">
-          <Label htmlFor="mobile">WhatsApp Number</Label>
-          <Input
-            id="mobile"
-            value={mobile}
-            onChange={(e) => setMobile(e.target.value)}
-            placeholder="+91XXXXXXXXXX"
-            required
-            data-testid="input-rsvp-mobile"
-          />
-        </div>
+          <Label>Phone Number</Label>
+          <div className="flex gap-2">
+            <select
+              className="border rounded px-2 py-1"
+              value={countryCode}
+              onChange={(e) => setCountryCode(e.target.value)}
+            >
+              <option value="+91">+91 🇮🇳</option>
+              <option value="+1">+1 🇺🇸</option>
+              <option value="+44">+44 🇬🇧</option>
+              <option value="+971">+971 🇦🇪</option>
+              <option value="+61">+61 🇦🇺</option>
+              <option value="+65">+65 🇸🇬</option>
+            </select>
 
-        {/* Attendance */}
-        <div className="space-y-1 mt-3">
-          <Label>Will you attend?</Label>
-          <div className="flex gap-4 mt-1">
-            <label className="flex items-center gap-2">
-              <input
-                type="radio"
-                checked={attending === "yes"}
-                onChange={() => setAttending("yes")}
-                data-testid="rsvp-attending-yes"
-              />
-              Yes
-            </label>
-            <label className="flex items-center gap-2">
-              <input
-                type="radio"
-                checked={attending === "no"}
-                onChange={() => setAttending("no")}
-                data-testid="rsvp-attending-no"
-              />
-              No
-            </label>
-          </div>
-        </div>
-
-        {/* Guest Count */}
-        {attending === "yes" && (
-          <div className="space-y-1 mt-3">
-            <Label htmlFor="guestCount">Number of Guests</Label>
             <Input
-              id="guestCount"
-              type="number"
-              min={1}
-              value={guestCount}
-              onChange={(e) => setGuestCount(Number(e.target.value))}
-              data-testid="input-rsvp-guest-count"
+              value={mobile}
+              onChange={(e) => setMobile(e.target.value.replace(/\D/g, ""))}
+              placeholder="Phone number"
+              required
             />
           </div>
-        )}
-
-        {/* WhatsApp Opt-in */}
-        <div className="mt-4 flex items-start gap-2 text-sm">
-          <input
-            type="checkbox"
-            id="whatsappOptIn"
-            checked={whatsappOptIn}
-            onChange={(e) => setWhatsappOptIn(e.target.checked)}
-            className="mt-1"
-            required
-            data-testid="input-rsvp-whatsapp-optin"
-          />
-          <Label htmlFor="whatsappOptIn" className="text-gray-700 font-normal">
-            I agree to receive WhatsApp messages related to <strong>Rohan ❤️ Hany’s wedding</strong> (RSVP confirmation and event updates).
-          </Label>
         </div>
 
-        {/* Submit */}
         <Button
           className="w-full mt-5"
           onClick={handleSubmit}
           disabled={loading}
-          data-testid="button-rsvp-submit"
         >
           {loading ? "Submitting..." : "Confirm RSVP"}
         </Button>
