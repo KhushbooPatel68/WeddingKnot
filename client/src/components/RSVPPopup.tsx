@@ -64,14 +64,12 @@ export default function RSVPPopup() {
     setLoading(true);
 
     try {
-      const response = await fetch("/api/rsvp", {
+      const response = await fetch("https://8riq0wuyre.execute-api.ap-south-1.amazonaws.com/prod/rsvp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          mobile: combinedMobile,
-        }),
+        body: JSON.stringify({ name, mobile: combinedMobile }),
       });
+
 
       const data = await response.json();
 
