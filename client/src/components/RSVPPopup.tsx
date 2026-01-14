@@ -1,21 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-interface RSVPPopupProps {
-  open: boolean;
-  onClose: () => void;
-}
-
-export default function RSVPPopup({ open, onClose }: RSVPPopupProps) {
+export default function RSVPPopup() {
+  const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
   const [attending, setAttending] = useState<"yes" | "no">("yes");
   const [guestCount, setGuestCount] = useState(1);
   const [whatsappOptIn, setWhatsappOptIn] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  // Open automatically on first visit if not already registered/submitted
+  useEffect(() => {
+    if (!localStorage.getItem("rsvp_done")) {
+      setOpen(true);
+    }
+
+    const handler = () => setOpen(true);
+    window.addEventListener("open-rsvp", handler as EventListener);
+    return () => window.removeEventListener("open-rsvp", handler as EventListener);
+  }, []);
 
   const handleSubmit = async () => {
     if (!name || !mobile) {
@@ -47,26 +54,30 @@ export default function RSVPPopup({ open, onClose }: RSVPPopupProps) {
         }),
       });
 
-      if (!response.ok) {
-        throw new Error("RSVP submission failed");
+      const data = await response.json();
+
+      if (!response.ok || !data?.success) {
+        throw new Error(data?.message || "RSVP submission failed");
       }
 
-      alert("RSVP submitted successfully! 🎉");
-      onClose();
+      // Mark as done so we don't show the popup again
+      localStorage.setItem("rsvp_done", "true");
+      localStorage.setItem("rsvp_mobile", mobile);
+
+      alert(data.message || "RSVP submitted successfully! 🎉");
+      setOpen(false);
     } catch (error) {
       console.error(error);
-      alert("Something went wrong. Please try again.");
+      alert((error as Error).message || "Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md">
-        <h2 className="text-xl font-semibold text-center mb-4">
-          RSVP Confirmation
-        </h2>
+    <Dialog open={open} onOpenChange={(isOpen) => setOpen(isOpen)}>
+      <DialogContent className="sm:max-w-md" data-testid="dialog-rsvp">
+        <h2 className="text-xl font-semibold text-center mb-4">RSVP Confirmation</h2>
 
         {/* Name */}
         <div className="space-y-1">
@@ -77,6 +88,7 @@ export default function RSVPPopup({ open, onClose }: RSVPPopupProps) {
             onChange={(e) => setName(e.target.value)}
             placeholder="Your name"
             required
+            data-testid="input-rsvp-name"
           />
         </div>
 
@@ -89,6 +101,7 @@ export default function RSVPPopup({ open, onClose }: RSVPPopupProps) {
             onChange={(e) => setMobile(e.target.value)}
             placeholder="+91XXXXXXXXXX"
             required
+            data-testid="input-rsvp-mobile"
           />
         </div>
 
@@ -101,6 +114,7 @@ export default function RSVPPopup({ open, onClose }: RSVPPopupProps) {
                 type="radio"
                 checked={attending === "yes"}
                 onChange={() => setAttending("yes")}
+                data-testid="rsvp-attending-yes"
               />
               Yes
             </label>
@@ -109,6 +123,7 @@ export default function RSVPPopup({ open, onClose }: RSVPPopupProps) {
                 type="radio"
                 checked={attending === "no"}
                 onChange={() => setAttending("no")}
+                data-testid="rsvp-attending-no"
               />
               No
             </label>
@@ -125,6 +140,7 @@ export default function RSVPPopup({ open, onClose }: RSVPPopupProps) {
               min={1}
               value={guestCount}
               onChange={(e) => setGuestCount(Number(e.target.value))}
+              data-testid="input-rsvp-guest-count"
             />
           </div>
         )}
@@ -138,11 +154,10 @@ export default function RSVPPopup({ open, onClose }: RSVPPopupProps) {
             onChange={(e) => setWhatsappOptIn(e.target.checked)}
             className="mt-1"
             required
+            data-testid="input-rsvp-whatsapp-optin"
           />
           <Label htmlFor="whatsappOptIn" className="text-gray-700 font-normal">
-            I agree to receive WhatsApp messages related to{" "}
-            <strong>Rohan ❤️ Hany’s wedding</strong> (RSVP confirmation and event
-            updates).
+            I agree to receive WhatsApp messages related to <strong>Rohan ❤️ Hany’s wedding</strong> (RSVP confirmation and event updates).
           </Label>
         </div>
 
@@ -151,6 +166,7 @@ export default function RSVPPopup({ open, onClose }: RSVPPopupProps) {
           className="w-full mt-5"
           onClick={handleSubmit}
           disabled={loading}
+          data-testid="button-rsvp-submit"
         >
           {loading ? "Submitting..." : "Confirm RSVP"}
         </Button>
