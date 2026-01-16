@@ -12,21 +12,27 @@ export function Welcome() {
         </div>
 
         <div className="prose prose-lg max-w-3xl mx-auto">
-          <p className="text-base md:text-lg font-montserrat leading-relaxed text-card-foreground" data-testid="text-welcome-message">
+          <p className="text-base md:text-lg font-montserrat leading-relaxed text-card-foreground">
             The festivities have begun,
             and we're beyond thrilled to have you join us
-            as we celebrate the magical union of <br/>
-            <span className="block font-playfair font-semibold text-primary text-2xl md:text-3xl my-3 tracking-wide">
-              Rohan & Hany
-            </span>
-            <br/>with a week full of joy, rituals, music, colour, and unforgettable memories!
+            as we celebrate the magical union of
           </p>
-          <p className="text-base md:text-lg font-montserrat leading-relaxed text-card-foreground mt-6">
+
+          <span className="block font-playfair font-semibold text-primary text-2xl md:text-3xl my-3 tracking-wide text-center">
+            Rohan & Hany
+          </span>
+
+          <p className="text-base md:text-lg font-montserrat leading-relaxed text-card-foreground mt-2">
+            with a week full of joy, rituals, music, colour, and unforgettable memories!
+          </p>
+
+          <p className="text-base md:text-lg font-montserrat leading-relaxed text-card-foreground mt-4">
             Get ready for a vibrant journey through traditions and total masti—
             because every ceremony is crafted with love
             and every moment is meant to be celebrated with you!
           </p>
         </div>
+
       </div>
     </section>
   );
