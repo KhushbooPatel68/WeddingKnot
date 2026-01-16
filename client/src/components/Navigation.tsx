@@ -12,7 +12,7 @@ export function Navigation() {
     { href: "/photos", label: "Photos" },
     { href: "/events", label: "Events" },
     { href: "/travel", label: "Travel" },
-    { href: "/things-to-do", label: "Things to Do" },
+    { href: "/things-to-do", label: "Things to Do in Surat" },
     { href: "/contact", label: "Contact" },
   ];
 
