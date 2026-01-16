@@ -35,7 +35,7 @@ export default function Contact() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="bg-card rounded-lg p-6 text-left" data-testid="contact-zeel">
                   <h3 className="text-lg font-playfair font-semibold">Zeel</h3>
-                  <p className="font-montserrat text-muted-foreground">Phone: <a href="tel:+918888888888" className="text-primary underline">+91-8888888888</a></p>
+                  <p className="font-montserrat text-muted-foreground">Phone: <a href="tel:+919512979548" className="text-primary underline">+91-9512979548</a></p>
                 </div>
 
                 <div className="bg-card rounded-lg p-6 text-left" data-testid="contact-brijesh">

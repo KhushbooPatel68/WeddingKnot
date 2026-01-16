@@ -16,7 +16,9 @@ export function Welcome() {
             The festivities have begun,
             and we're beyond thrilled to have you join us
             as we celebrate the magical union of <br/>
-            <span className="font-playfair font-semibold text-primary"> Rohan & Hany </span>
+            <span className="block font-playfair font-semibold text-primary text-2xl md:text-3xl my-3 tracking-wide">
+              Rohan & Hany
+            </span>
             <br/>with a week full of joy, rituals, music, colour, and unforgettable memories!
           </p>
           <p className="text-base md:text-lg font-montserrat leading-relaxed text-card-foreground mt-6">

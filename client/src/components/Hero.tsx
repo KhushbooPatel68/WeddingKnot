@@ -39,7 +39,7 @@ export function Hero() {
         <div className="space-y-8">
           <div className="space-y-4">
             <h1 className="text-6xl md:text-8xl font-playfair font-bold text-white tracking-tight" data-testid="text-couple-names">
-              Rohan & Hany
+              Rohan <br/>& <br/>Hany
             </h1>
             <div className="flex items-center justify-center gap-3">
               <div className="h-px w-16 bg-white/50" />

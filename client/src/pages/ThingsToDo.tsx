@@ -96,7 +96,7 @@ export default function ThingsToDo() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16 space-y-4">
             <h1 className="text-4xl md:text-5xl font-playfair font-semibold text-foreground" data-testid="text-things-title">
-              Things to Do
+              Things to Do in Surat
             </h1>
             <p className="text-base md:text-lg font-montserrat text-muted-foreground max-w-2xl mx-auto">
               Discover the best experiences in the area during your visit

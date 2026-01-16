@@ -32,7 +32,7 @@ export function Footer() {
                 Travel
               </Link>
               <Link href="/things-to-do" className="text-sm font-montserrat text-muted-foreground hover:text-primary transition-colors cursor-pointer" data-testid="link-footer-things-to-do">
-                Things to Do
+                Things to Do in Surat
               </Link>
             </div>
           </div>
