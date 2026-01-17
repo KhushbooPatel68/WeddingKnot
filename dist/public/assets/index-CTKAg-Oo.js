@@ -148,7 +148,7 @@ Before the wedding festivities unfold, we come together to seek peace, positivit
 Join us for the Grah Shanti of Rohan & Hany, where heartfelt prayers, Vedic chants, and auspicious rituals will set the foundation for a blissful and harmonious married life. 🕉️✨
 
 Your presence and blessings will make this sacred beginning truly meaningful.`,venue:"Karishma seva cheritebal Trust Tapi Maiya Cricket Ground, C-20, Magdalla Police Line, New Magdalla, Surat, Gujarat 395007",address:"Karishma seva cheritebal Trust Tapi Maiya Cricket Ground, C-20, Magdalla Police Line, New Magdalla, Surat, Gujarat 395007",host:`Warm regards,
-Atul Patel & Family`,image:Gr},sangeet:{id:"sangeet",name:"Sangeet",date:"Friday, February 13, 2026",time:"9:00 PM – 12:00 AM",startTime:"9:00 PM",dateISO:"2026-02-13T21:00:00",attire:"Dress to impress and get ready to dance!",description:"A night of music, dance, and endless entertainment as both families celebrate the couple's love story.",fullDescription:`🌟 You’re Invited to the Sangeet! 🌟
+Atul Patel & Family`,image:Gr},sangeet:{id:"sangeet",name:"Sangeet",date:"Friday, February 13, 2026",time:"7:30 PM – 12:00 AM",startTime:"7:30 PM",dateISO:"2026-02-13T19:30:00",attire:"Dress to impress and get ready to dance!",description:"A night of music, dance, and endless entertainment as both families celebrate the couple's love story.",fullDescription:`🌟 You’re Invited to the Sangeet! 🌟
 
 Dhol Bajega • Dance Hoga • Masti Unlimited!
 
@@ -159,7 +159,7 @@ Join us as we celebrate the soon-to-be-weds Rohan & Hany with beats that’ll ma
 Come dressed to impress and charged up to shake a leg—because this Sangeet is going to be high-energy, colourful, and absolutely unforgettable!
 
 We can’t wait to dance the night away with you! 💃🕺✨`,venue:"Karishma seva cheritebal Trust Tapi Maiya Cricket Ground, C-20, Magdalla Police Line, New Magdalla, Surat, Gujarat 395007",address:"Karishma seva cheritebal Trust Tapi Maiya Cricket Ground, C-20, Magdalla Police Line, New Magdalla, Surat, Gujarat 395007",host:`Warm regards,
-Atul Patel & Family`,image:Cc},baarat:{id:"baarat",name:"Baarat",date:"Saturday, February 14, 2026",time:"6:00 PM – 12:00 AM",dateISO:"2026-02-14T18:00:00",attire:"Traditional Indian Wedding Attire",description:"The groom's grand procession marks the joyful arrival of the wedding celebrations.",fullDescription:`🎺 Baraat 🎺
+Atul Patel & Family`,image:Cc},baarat:{id:"baarat",name:"Baarat",date:"Saturday, February 14, 2026",time:"6:00 PM – 9:00 PM",dateISO:"2026-02-14T18:00:00",attire:"Traditional Indian Wedding Attire",description:"The groom's grand procession marks the joyful arrival of the wedding celebrations.",fullDescription:`🎺 Baraat 🎺
 
 Music • Dance • Grand Celebration
 
@@ -168,7 +168,7 @@ The groom's grand procession marks the joyful arrival of the wedding celebration
 Join us as the Baraat of Rohan makes its way to the wedding ceremony, celebrating love, tradition, and the beginning of a beautiful union in true festive style. 🥁✨
 
 Let the beats rise, the feet move, and the celebrations begin!`,venue:"A/9 Balaji Nagar, Himgiri Society, Piplod, Surat, Gujarat 395007",address:"Philippe Villa, A/13, behind Lakeview Restaurant, Balaji Nagar, Himgiri Society, Piplod, Surat, Gujarat 395007",host:`Warm regards,
-Atul Patel & Family`,image:Ec},wedding:{id:"wedding",name:"Wedding Ceremony",date:"Saturday, February 14, 2026",time:"3:00 PM – 6:00 PM",dateISO:"2026-02-14T15:00:00",attire:"Formal Indian Wedding Attire",description:"The sacred moment when two souls unite. Witness Rohan and Hany exchange vows under the beautiful mandap, surrounded by love, blessings, and sacred rituals.",fullDescription:`The Sacred Wedding Ceremony 
+Atul Patel & Family`,image:Ec},wedding:{id:"wedding",name:"Wedding Ceremony",date:"Saturday, February 14, 2026",time:"9:00 PM – 12:00 AM",dateISO:"2026-02-14T21:00:00",attire:"Formal Indian Wedding Attire",description:"The sacred moment when two souls unite. Witness Rohan and Hany exchange vows under the beautiful mandap, surrounded by love, blessings, and sacred rituals.",fullDescription:`The Sacred Wedding Ceremony 
 
 Vows • Unity • Forever Begins
 
