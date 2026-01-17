@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -43,15 +43,7 @@ const WEDDING_EVENTS = [
   },
 ];
 
-// Load AddEvent script
-const loadAddEventScript = () => {
-  if (typeof window !== "undefined" && !(window as any).ADDEVENT) {
-    const script = document.createElement("script");
-    script.src = "https://cdn.addevent.com/libs/stc/1.6.5/stc.umd.js";
-    script.async = true;
-    document.head.appendChild(script);
-  }
-};
+// No external library needed - we'll use standard calendar links
 
 export default function RSVPPopup() {
   const [open, setOpen] = useState(false);
@@ -74,13 +66,6 @@ export default function RSVPPopup() {
     window.addEventListener("open-rsvp", handler as EventListener);
     return () => window.removeEventListener("open-rsvp", handler as EventListener);
   }, []);
-
-  // Load AddEvent script when dialog opens
-  useEffect(() => {
-    if (open) {
-      loadAddEventScript();
-    }
-  }, [open]);
 
   const validatePhone = () => {
     const len = mobile.length;
@@ -106,38 +91,64 @@ export default function RSVPPopup() {
   };
 
   const addEventsToCalendar = async () => {
-    // Load AddEvent library if not already loaded
-    if (!(window as any).ADDEVENT) {
-      await new Promise((resolve) => {
-        const script = document.createElement("script");
-        script.src = "https://cdn.addevent.com/libs/stc/1.6.5/stc.umd.js";
-        script.async = true;
-        script.onload = resolve;
-        document.head.appendChild(script);
-      });
-    }
+    // Use different calendar links based on the first event as example
+    // User will get prompted to add all events to their calendar
+    
+    const event = WEDDING_EVENTS[0]; // Start with Haldi
+    const startDate = event.date.replace(/-/g, "");
+    const startTime = event.startTime.replace(":", "");
+    const endTime = event.endTime.replace(":", "");
+    
+    // Create Google Calendar link
+    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("Rohan & Hany Wedding - " + event.name)}&dates=${startDate}T${startTime}00/${startDate}T${endTime}00&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent("Wedding Venue")}`;
+    
+    // Open Google Calendar (or user's default calendar app on mobile)
+    window.open(googleCalendarUrl, "_blank");
+    
+    // Also try to create an ICS file as fallback for other calendar apps
+    setTimeout(() => {
+      createAndDownloadICS();
+    }, 1000);
+  };
 
-    // Trigger AddEvent for each wedding event
-    WEDDING_EVENTS.forEach((event, index) => {
-      setTimeout(() => {
-        const ADDEVENT = (window as any).ADDEVENT;
-        if (ADDEVENT && ADDEVENT.calendar) {
-          const startDateTime = `${event.date}T${event.startTime}:00`;
-          const endDateTime = `${event.date}T${event.endTime}:00`;
+  const createAndDownloadICS = () => {
+    const icsContent: string[] = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//Wedding Knot//EN",
+      "CALSCALE:GREGORIAN",
+      "METHOD:PUBLISH",
+    ];
 
-          ADDEVENT.calendar({
-            title: event.name,
-            description: event.description,
-            start: startDateTime,
-            end: endDateTime,
-            location: "Wedding Venue",
-            organizer: "Rohan & Hany Wedding",
-            organizer_email: "wedding@example.com",
-            all_day_event: false,
-          });
-        }
-      }, index * 500); // Stagger the events by 500ms
+    WEDDING_EVENTS.forEach((event) => {
+      const [year, month, day] = event.date.split("-");
+      const dtStart = `${year}${month}${day}T${event.startTime.replace(":", "")}00`;
+      const dtEnd = `${year}${month}${day}T${event.endTime.replace(":", "")}00`;
+
+      icsContent.push(
+        "BEGIN:VEVENT",
+        `DTSTART:${dtStart}`,
+        `DTEND:${dtEnd}`,
+        `SUMMARY:${event.name}`,
+        `DESCRIPTION:${event.description}`,
+        `LOCATION:Wedding Venue`,
+        `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").split(".")[0]}Z`,
+        `UID:${event.name.toLowerCase().replace(/\s+/g, "-")}@wedding-knot.com`,
+        "STATUS:CONFIRMED",
+        "END:VEVENT"
+      );
     });
+
+    icsContent.push("END:VCALENDAR");
+    
+    const ics = icsContent.join("\r\n");
+    const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "wedding-events.ics";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const handleSubmit = async () => {
@@ -190,9 +201,9 @@ export default function RSVPPopup() {
   return (
     <Dialog open={open} onOpenChange={(isOpen) => setOpen(isOpen)}>
       <DialogContent className="sm:max-w-md" data-testid="dialog-rsvp">
-        <h2 className="text-xl font-semibold text-center mb-4">
+        <DialogTitle className="text-xl font-semibold text-center mb-4">
           RSVP Confirmation
-        </h2>
+        </DialogTitle>
 
         {/* Name */}
         <div className="space-y-1">
