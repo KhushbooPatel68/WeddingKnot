@@ -3,6 +3,55 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+
+const WEDDING_EVENTS = [
+  {
+    name: "Haldi Ceremony",
+    date: "2026-02-12",
+    startTime: "11:00",
+    endTime: "15:00",
+    description: "A joyous pre-wedding ceremony where turmeric paste is applied to the bride and groom for good luck and radiant skin.",
+  },
+  {
+    name: "Grah Shanti",
+    date: "2026-02-13",
+    startTime: "16:00",
+    endTime: "19:00",
+    description: "A sacred ceremony performed to invoke blessings from the divine and seek harmony for the upcoming union.",
+  },
+  {
+    name: "Sangeet",
+    date: "2026-02-13",
+    startTime: "21:00",
+    endTime: "00:00",
+    description: "Get ready for a night of music, dance, and endless entertainment!",
+  },
+  {
+    name: "Wedding Ceremony",
+    date: "2026-02-14",
+    startTime: "15:00",
+    endTime: "18:00",
+    description: "The sacred moment when two souls unite under the beautiful mandap.",
+  },
+  {
+    name: "Baarat",
+    date: "2026-02-14",
+    startTime: "18:00",
+    endTime: "00:00",
+    description: "The groom's grand procession arrives with music, dancing, and celebration.",
+  },
+];
+
+// Load AddEvent script
+const loadAddEventScript = () => {
+  if (typeof window !== "undefined" && !(window as any).ADDEVENT) {
+    const script = document.createElement("script");
+    script.src = "https://cdn.addevent.com/libs/stc/1.6.5/stc.umd.js";
+    script.async = true;
+    document.head.appendChild(script);
+  }
+};
 
 export default function RSVPPopup() {
   const [open, setOpen] = useState(false);
@@ -10,6 +59,7 @@ export default function RSVPPopup() {
   const [mobile, setMobile] = useState("");
   const [countryCode, setCountryCode] = useState("+91");
   const [loading, setLoading] = useState(false);
+  const [addToCalendar, setAddToCalendar] = useState(false);
 
   // Skip popup if already RSVP'd with stored number
   useEffect(() => {
@@ -24,6 +74,13 @@ export default function RSVPPopup() {
     window.addEventListener("open-rsvp", handler as EventListener);
     return () => window.removeEventListener("open-rsvp", handler as EventListener);
   }, []);
+
+  // Load AddEvent script when dialog opens
+  useEffect(() => {
+    if (open) {
+      loadAddEventScript();
+    }
+  }, [open]);
 
   const validatePhone = () => {
     const len = mobile.length;
@@ -46,6 +103,41 @@ export default function RSVPPopup() {
       default:
         return len > 5; // fallback
     }
+  };
+
+  const addEventsToCalendar = async () => {
+    // Load AddEvent library if not already loaded
+    if (!(window as any).ADDEVENT) {
+      await new Promise((resolve) => {
+        const script = document.createElement("script");
+        script.src = "https://cdn.addevent.com/libs/stc/1.6.5/stc.umd.js";
+        script.async = true;
+        script.onload = resolve;
+        document.head.appendChild(script);
+      });
+    }
+
+    // Trigger AddEvent for each wedding event
+    WEDDING_EVENTS.forEach((event, index) => {
+      setTimeout(() => {
+        const ADDEVENT = (window as any).ADDEVENT;
+        if (ADDEVENT && ADDEVENT.calendar) {
+          const startDateTime = `${event.date}T${event.startTime}:00`;
+          const endDateTime = `${event.date}T${event.endTime}:00`;
+
+          ADDEVENT.calendar({
+            title: event.name,
+            description: event.description,
+            start: startDateTime,
+            end: endDateTime,
+            location: "Wedding Venue",
+            organizer: "Rohan & Hany Wedding",
+            organizer_email: "wedding@example.com",
+            all_day_event: false,
+          });
+        }
+      }, index * 500); // Stagger the events by 500ms
+    });
   };
 
   const handleSubmit = async () => {
@@ -79,6 +171,11 @@ export default function RSVPPopup() {
 
       localStorage.setItem("rsvp_done", "true");
       localStorage.setItem("rsvp_mobile", combinedMobile);
+
+      // Add events to calendar if checkbox is selected
+      if (addToCalendar) {
+        await addEventsToCalendar();
+      }
 
       alert(data.message || "RSVP submitted successfully! 🎉");
       setOpen(false);
@@ -133,6 +230,30 @@ export default function RSVPPopup() {
               required
             />
           </div>
+        </div>
+
+        {/* Add to Calendar Checkbox */}
+        <div className="flex items-center space-x-2 mt-4 p-3 bg-purple-50 border border-purple-200 rounded-lg">
+          <Checkbox
+            id="add-calendar"
+            checked={addToCalendar}
+            onCheckedChange={(checked) => setAddToCalendar(checked as boolean)}
+          />
+          <label
+            htmlFor="add-calendar"
+            className="text-sm font-medium cursor-pointer text-purple-900"
+          >
+            📅 Add all events to my calendar
+          </label>
+        </div>
+
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-4">
+          <p className="text-sm font-semibold text-blue-900 mb-1">
+            Stay Connected
+          </p>
+          <p className="text-sm text-blue-800">
+            From ceremonies to celebrations, receive timely updates and reminders for our special days.
+          </p>
         </div>
 
         <Button
