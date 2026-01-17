@@ -23,23 +23,23 @@ const WEDDING_EVENTS = [
   {
     name: "Sangeet",
     date: "2026-02-13",
-    startTime: "21:00",
+    startTime: "19:30",
     endTime: "00:00",
     description: "Get ready for a night of music, dance, and endless entertainment!",
-  },
-  {
-    name: "Wedding Ceremony",
-    date: "2026-02-14",
-    startTime: "15:00",
-    endTime: "18:00",
-    description: "The sacred moment when two souls unite under the beautiful mandap.",
   },
   {
     name: "Baarat",
     date: "2026-02-14",
     startTime: "18:00",
-    endTime: "00:00",
+    endTime: "21:00",
     description: "The groom's grand procession arrives with music, dancing, and celebration.",
+  },
+  {
+    name: "Wedding Ceremony",
+    date: "2026-02-14",
+    startTime: "21:00",
+    endTime: "00:00",
+    description: "The sacred moment when two souls unite under the beautiful mandap.",
   },
 ];
 
@@ -122,8 +122,24 @@ export default function RSVPPopup() {
 
     WEDDING_EVENTS.forEach((event) => {
       const [year, month, day] = event.date.split("-");
-      const dtStart = `${year}${month}${day}T${event.startTime.replace(":", "")}00`;
-      const dtEnd = `${year}${month}${day}T${event.endTime.replace(":", "")}00`;
+      const startHour = event.startTime.split(":")[0];
+      const startMin = event.startTime.split(":")[1];
+      const dtStart = `${year}${month}${day}T${startHour}${startMin}00`;
+      
+      // Handle end time - if it's 00:00, it's the next day
+      let endDate = event.date;
+      const endHour = event.endTime.split(":")[0];
+      const endMin = event.endTime.split(":")[1];
+      
+      if (event.endTime === "00:00") {
+        // Midnight - move to next day
+        const nextDay = new Date(event.date);
+        nextDay.setDate(nextDay.getDate() + 1);
+        endDate = nextDay.toISOString().split("T")[0];
+      }
+      
+      const [endYear, endMonth, endDay] = endDate.split("-");
+      const dtEnd = `${endYear}${endMonth}${endDay}T${endHour}${endMin}00`;
 
       icsContent.push(
         "BEGIN:VEVENT",
@@ -133,7 +149,7 @@ export default function RSVPPopup() {
         `DESCRIPTION:${event.description}`,
         `LOCATION:Wedding Venue`,
         `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").split(".")[0]}Z`,
-        `UID:${event.name.toLowerCase().replace(/\s+/g, "-")}@wedding-knot.com`,
+        `UID:${event.name.toLowerCase().replace(/\s+/g, "-")}-${event.date}@wedding-knot.com`,
         "STATUS:CONFIRMED",
         "END:VEVENT"
       );
