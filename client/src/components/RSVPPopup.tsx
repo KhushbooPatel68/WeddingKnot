@@ -91,20 +91,39 @@ export default function RSVPPopup() {
   };
 
   const addEventsToCalendar = async () => {
-    // Create ICS file with all events and open it in calendar app
-    // This will trigger calendar app to open with all events together
+    // Create ICS file with all events
     const icsContent = generateICSContent();
     
-    const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
-    const blobUrl = URL.createObjectURL(blob);
+    // Detect if mobile device
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
     
-    // Open in new window/tab which triggers calendar app on mobile or download dialog on desktop
-    window.open(blobUrl, "_blank");
-    
-    // Cleanup after a delay
-    setTimeout(() => {
-      URL.revokeObjectURL(blobUrl);
-    }, 1000);
+    if (isMobile) {
+      // For mobile: Create blob and download
+      const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      
+      // Create temporary link and trigger download
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "wedding-events.ics";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // Cleanup
+      setTimeout(() => {
+        URL.revokeObjectURL(url);
+      }, 100);
+    } else {
+      // For desktop: Try to open in calendar app or offer download
+      const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      window.open(url, "_blank");
+      
+      setTimeout(() => {
+        URL.revokeObjectURL(url);
+      }, 1000);
+    }
   };
 
   const generateICSContent = () => {
