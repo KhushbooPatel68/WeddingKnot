@@ -91,24 +91,31 @@ export default function RSVPPopup() {
   };
 
   const addEventsToCalendar = async () => {
-    // Use different calendar links based on the first event as example
-    // User will get prompted to add all events to their calendar
+    // For Android and better compatibility, open multiple Google Calendar links
+    // Each link adds one event to the user's calendar
     
-    const event = WEDDING_EVENTS[0]; // Start with Haldi
-    const startDate = event.date.replace(/-/g, "");
-    const startTime = event.startTime.replace(":", "");
-    const endTime = event.endTime.replace(":", "");
+    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
     
-    // Create Google Calendar link
-    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("Rohan & Hany Wedding - " + event.name)}&dates=${startDate}T${startTime}00/${startDate}T${endTime}00&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent("Wedding Venue")}`;
+    for (let i = 0; i < WEDDING_EVENTS.length; i++) {
+      const event = WEDDING_EVENTS[i];
+      const startDate = event.date.replace(/-/g, "");
+      const startTime = event.startTime.replace(":", "");
+      const endTime = event.endTime.replace(":", "");
+      
+      const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("Rohan & Hany Wedding - " + event.name)}&dates=${startDate}T${startTime}00/${startDate}T${endTime}00&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent("Wedding Venue")}`;
+      
+      // Open each event in a new tab/window with a delay between them
+      window.open(googleCalendarUrl, "_blank");
+      
+      // Add delay between opening multiple windows
+      if (i < WEDDING_EVENTS.length - 1) {
+        await delay(800);
+      }
+    }
     
-    // Open Google Calendar (or user's default calendar app on mobile)
-    window.open(googleCalendarUrl, "_blank");
-    
-    // Also try to create an ICS file as fallback for other calendar apps
-    setTimeout(() => {
-      createAndDownloadICS();
-    }, 1000);
+    // Also create and download ICS file as fallback
+    await delay(1000);
+    createAndDownloadICS();
   };
 
   const createAndDownloadICS = () => {
