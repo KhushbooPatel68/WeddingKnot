@@ -91,34 +91,23 @@ export default function RSVPPopup() {
   };
 
   const addEventsToCalendar = async () => {
-    // For Android and better compatibility, open multiple Google Calendar links
-    // Each link adds one event to the user's calendar
+    // Create ICS file with all events and open it in calendar app
+    // This will trigger calendar app to open with all events together
+    const icsContent = generateICSContent();
     
-    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+    const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+    const blobUrl = URL.createObjectURL(blob);
     
-    for (let i = 0; i < WEDDING_EVENTS.length; i++) {
-      const event = WEDDING_EVENTS[i];
-      const startDate = event.date.replace(/-/g, "");
-      const startTime = event.startTime.replace(":", "");
-      const endTime = event.endTime.replace(":", "");
-      
-      const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent("Rohan & Hany Wedding - " + event.name)}&dates=${startDate}T${startTime}00/${startDate}T${endTime}00&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent("Wedding Venue")}`;
-      
-      // Open each event in a new tab/window with a delay between them
-      window.open(googleCalendarUrl, "_blank");
-      
-      // Add delay between opening multiple windows
-      if (i < WEDDING_EVENTS.length - 1) {
-        await delay(800);
-      }
-    }
+    // Open in new window/tab which triggers calendar app on mobile or download dialog on desktop
+    window.open(blobUrl, "_blank");
     
-    // Also create and download ICS file as fallback
-    await delay(1000);
-    createAndDownloadICS();
+    // Cleanup after a delay
+    setTimeout(() => {
+      URL.revokeObjectURL(blobUrl);
+    }, 1000);
   };
 
-  const createAndDownloadICS = () => {
+  const generateICSContent = () => {
     const icsContent: string[] = [
       "BEGIN:VCALENDAR",
       "VERSION:2.0",
@@ -141,8 +130,7 @@ export default function RSVPPopup() {
       let endMin = event.endTime.split(":")[1].padStart(2, "0");
       
       if (event.endTime === "00:00") {
-        // For midnight end times, set to 23:59:59 same day (Android compatible)
-        // Or move to next day with time 00:00:00
+        // For midnight end times, move to next day with time 00:00:00
         const nextDay = new Date(event.date);
         nextDay.setDate(nextDay.getDate() + 1);
         endDate = nextDay.toISOString().split("T")[0];
@@ -170,15 +158,7 @@ export default function RSVPPopup() {
     });
 
     icsContent.push("END:VCALENDAR");
-    
-    const ics = icsContent.join("\r\n");
-    const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "wedding-events.ics";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    return icsContent.join("\r\n");
   };
 
   const handleSubmit = async () => {
