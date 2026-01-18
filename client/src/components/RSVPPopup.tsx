@@ -118,24 +118,29 @@ export default function RSVPPopup() {
       "PRODID:-//Wedding Knot//EN",
       "CALSCALE:GREGORIAN",
       "METHOD:PUBLISH",
+      "X-WR-CALNAME:Rohan & Hany Wedding",
+      "X-WR-TIMEZONE:Asia/Kolkata",
     ];
 
-    WEDDING_EVENTS.forEach((event) => {
+    WEDDING_EVENTS.forEach((event, index) => {
       const [year, month, day] = event.date.split("-");
-      const startHour = event.startTime.split(":")[0];
-      const startMin = event.startTime.split(":")[1];
+      const startHour = event.startTime.split(":")[0].padStart(2, "0");
+      const startMin = event.startTime.split(":")[1].padStart(2, "0");
       const dtStart = `${year}${month}${day}T${startHour}${startMin}00`;
       
       // Handle end time - if it's 00:00, it's the next day
       let endDate = event.date;
-      const endHour = event.endTime.split(":")[0];
-      const endMin = event.endTime.split(":")[1];
+      let endHour = event.endTime.split(":")[0].padStart(2, "0");
+      let endMin = event.endTime.split(":")[1].padStart(2, "0");
       
       if (event.endTime === "00:00") {
-        // Midnight - move to next day
+        // For midnight end times, set to 23:59:59 same day (Android compatible)
+        // Or move to next day with time 00:00:00
         const nextDay = new Date(event.date);
         nextDay.setDate(nextDay.getDate() + 1);
         endDate = nextDay.toISOString().split("T")[0];
+        endHour = "00";
+        endMin = "00";
       }
       
       const [endYear, endMonth, endDay] = endDate.split("-");
@@ -149,8 +154,10 @@ export default function RSVPPopup() {
         `DESCRIPTION:${event.description}`,
         `LOCATION:Wedding Venue`,
         `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").split(".")[0]}Z`,
-        `UID:${event.name.toLowerCase().replace(/\s+/g, "-")}-${event.date}@wedding-knot.com`,
+        `UID:rohan-hany-wedding-${index}-${event.date}@wedding-knot.com`,
         "STATUS:CONFIRMED",
+        "TRANSP:OPAQUE",
+        "SEQUENCE:0",
         "END:VEVENT"
       );
     });
