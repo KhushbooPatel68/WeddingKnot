@@ -6,7 +6,7 @@ import type { Event } from "@shared/schema";
 import { useEffect, useState } from "react";
 import { differenceInDays, differenceInHours, differenceInMinutes } from "date-fns";
 
-import haldiImage from "@assets/generated_images/Haldi_ceremony_decoration_6832d51a.png";
+import haldiImage from "@assets/generated_images/Haldi.png";
 import sangeetImage from "@assets/generated_images/Sangeet_celebration_stage_d3028e5a.png";
 import baaratImage from "@assets/generated_images/Baarat_horse_procession_1afc7c90.png";
 import weddingImage from "@assets/generated_images/Wedding_mandap_ceremony_4bdc3e19.png";
