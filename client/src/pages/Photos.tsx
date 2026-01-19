@@ -9,7 +9,7 @@ import weddingRings from "@assets/generated_images/Wedding_rings_detail_36f3c608
 import celebrationDancing from "@assets/generated_images/Wedding_celebration_dancing_2d37b592.png";
 import receptionTable from "@assets/generated_images/Reception_table_setting_9a6a559f.png";
 import haldiCeremony from "@assets/generated_images/Haldi.png";
-import sangeetStage from "@assets/generated_images/Sangeet_celebration_stage_d3028e5a.png";
+import sangeetStage from "@assets/generated_images/sangeet.png";
 import baaratHorse from "@assets/generated_images/Baarat_horse_procession_1afc7c90.png";
 import engagement from "@assets/generated_images/497d05e1-4cdf-4ab2-9d6c-385b3800df85.JPG";
 import engagement1 from "@assets/generated_images/af26403a-e803-4c4c-9cb8-b9385c655ba0.JPG";
