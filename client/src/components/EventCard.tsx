@@ -23,11 +23,7 @@ export function EventCard({ event }: EventCardProps) {
         <img 
           src={event.image} 
           alt={event.name}
-          className={`w-full h-full transition-transform duration-300 ${
-            event.id === "baarat" 
-              ? "object-contain" 
-              : "object-cover hover:scale-105"
-          }`}
+          className="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"
           data-testid={`img-event-${event.id}`}
         />
       </div>
