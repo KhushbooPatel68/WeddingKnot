@@ -7,7 +7,7 @@ import type { Event } from "@shared/schema";
 
 import haldiImage from "@assets/generated_images/Haldi.png";
 import sangeetImage from "@assets/generated_images/sangeet.png";
-import baaratImage from "@assets/generated_images/Baarat_horse_procession_1afc7c90.png";
+import baaratImage from "@assets/generated_images/baarat.png";
 import weddingImage from "@assets/generated_images/Wedding_mandap_ceremony_4bdc3e19.png";
 
 const events: Event[] = [

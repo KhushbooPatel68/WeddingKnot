@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Invitation - Surat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        background-color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        font-family: 'Cinzel', serif;
+    }
+
+    .gatefold-container {
+        display: flex;
+        flex-direction: row;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        max-width: 1100px;
+        width: 100%;
+        background-color: transparent;
+    }
+
+    .panel {
+        background-color: #FDFBF7;
+        padding: 30px 15px;
+        text-align: center;
+        color: #B8860B;
+        box-sizing: border-box;
+        position: relative;
+    }
+
+    h1 {
+        font-family: 'Pinyon Script', cursive;
+        font-size: 3.5rem;
+        margin: 10px 0;
+        line-height: 1.2;
+        background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-weight: 400;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-top: 10px;
+        margin-bottom: 20px;
+        color: #a67c00;
+        border-bottom: 1px solid #e0cd98;
+        display: inline-block;
+        padding-bottom: 5px;
+    }
+
+    /* Event Styling (Left Panel) */
+    .event-block {
+        margin-bottom: 15px;
+        border-bottom: 1px solid #f0e6d2;
+        padding-bottom: 10px;
+    }
+    .event-block:last-child {
+        border-bottom: none;
+    }
+    .event-title {
+        font-weight: 600;
+        font-size: 0.85rem;
+        color: #8a6608;
+        margin: 0 0 4px 0;
+        text-transform: uppercase;
+    }
+    .event-info {
+        font-size: 0.7rem;
+        line-height: 1.4;
+        color: #a67c00;
+        margin: 0;
+        font-weight: 400;
+    }
+
+    /* Center Panel Styling */
+    .date-section {
+        border-top: 1px solid #d4af37;
+        border-bottom: 1px solid #d4af37;
+        padding: 10px 0;
+        margin: 30px 40px;
+        font-size: 1.5rem;
+        letter-spacing: 3px;
+        color: #a67c00;
+    }
+
+    .small-text {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+    }
+
+    /* Panel Widths */
+    .left-panel, .right-panel {
+        width: 28%;
+        border: 1px solid #e0e0e0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; 
+    }
+
+    .right-panel {
+        justify-content: center; /* Center content vertically for Right Panel */
+        align-items: center;
+    }
+
+    .center-panel {
+        width: 44%;
+        border: 1px solid #e0e0e0;
+        background-color: #fffcf5; 
+        z-index: 10;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    /* QR Code Image Style */
+    .qr-img {
+        width: 150px;
+        height: auto;
+        border: 4px solid #d4af37; /* Gold border around QR code */
+        margin-bottom: 20px;
+        padding: 5px;
+    }
+
+    .link-text {
+        color: #B8860B;
+        text-decoration: none;
+        font-weight: bold;
+        border-bottom: 1px solid #B8860B;
+        font-size: 0.8rem;
+    }
+
+    @media (max-width: 768px) {
+        .gatefold-container {
+            flex-direction: column;
+        }
+        .left-panel, .right-panel, .center-panel {
+            width: 100%;
+            border-bottom: 1px solid #ccc;
+        }
+        h1 { font-size: 2.5rem; }
+    }
+</style>
+</head>
+<body>
+
+<div class="gatefold-container">
+
+    <div class="panel left-panel">
+        <h2>Details</h2>
+        
+        <div class="event-block">
+            <h3 class="event-title">Haldi</h3>
+            <p class="event-info">12th Feb, 2026 | 11:00 AM</p>
+            <p class="event-info">Tapi Maiya Cricket Ground</p>
+        </div>
+
+        <div class="event-block">
+            <h3 class="event-title">Grah Shanti</h3>
+            <p class="event-info">13th Feb, 2026 | 4:00 PM</p>
+            <p class="event-info">Tapi Maiya Cricket Ground</p>
+        </div>
+
+        <div class="event-block">
+            <h3 class="event-title">Sangeet</h3>
+            <p class="event-info">13th Feb, 2026 | 7:30 PM</p>
+            <p class="event-info">Tapi Maiya Cricket Ground</p>
+        </div>
+
+        <div class="event-block">
+            <h3 class="event-title">Baarat / Wedding</h3>
+            <p class="event-info">14th Feb, 2026 | 6:00 PM</p>
+            <p class="event-info">Start: A/9 Balajinagar, Piplod</p>
+            <p class="event-info">Wedding: Dipli Gam</p>
+        </div>
+    </div>
+
+    <div class="panel center-panel">
+        <h1>Rohan & Hany</h1>
+
+        <p class="small-text">INVITE YOU TO SHARE IN THEIR JOY AS<br>THEY BECOME HUSBAND AND WIFE</p>
+
+        <div class="date-section">
+            FEB | 14 | 2026
+        </div>
+        <p class="small-text">SATURDAY AT 6 PM</p>
+
+        <br>
+        <!-- <p class="small-text">DIPLI GAM</p> -->
+        <p class="small-text">A/9 Balajinagar, Nr. Radhakrishna Temple, Piplod, Surat, Gujarat - 395007</p>
+    </div>
+
+    <div class="panel right-panel">
+        <img src="qrcode.jpg" alt="Scan for Wedding Info" class="qr-img">
+        
+        <br>
+        
+        <p class="event-info" style="font-size: 0.9rem; margin-bottom: 15px;">
+            For live update and wedding info<br>use QR code or website link
+        </p>
+        
+        <a href="https://www.rh2026.com/" class="link-text" target="_blank">www.rh2026.com</a>
+    </div>
+
+</div>
+
+</body>
+</html>
