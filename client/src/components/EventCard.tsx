@@ -19,11 +19,15 @@ export function EventCard({ event }: EventCardProps) {
       className="overflow-hidden hover-elevate transition-all duration-300 cursor-pointer hover:shadow-lg" 
       data-testid={`card-event-${event.id}`}
     >
-      <div className="aspect-[4/3] overflow-hidden">
+      <div className="aspect-[4/3] overflow-hidden bg-muted">
         <img 
           src={event.image} 
           alt={event.name}
-          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+          className={`w-full h-full transition-transform duration-300 ${
+            event.id === "baarat" 
+              ? "object-contain" 
+              : "object-cover hover:scale-105"
+          }`}
           data-testid={`img-event-${event.id}`}
         />
       </div>

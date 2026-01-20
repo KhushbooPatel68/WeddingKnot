@@ -9,7 +9,7 @@ import { differenceInDays, differenceInHours, differenceInMinutes } from "date-f
 import haldiImage from "@assets/generated_images/Haldi.png";
 import sangeetImage from "@assets/generated_images/sangeet.png";
 import baaratImage from "@assets/generated_images/baarat.png";
-import weddingImage from "@assets/generated_images/Wedding_mandap_ceremony_4bdc3e19.png";
+import weddingImage from "@assets/generated_images/wedding.png";
 
 function EventCountdown({ isoDate }: { isoDate: string }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0 });
