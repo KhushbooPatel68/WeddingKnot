@@ -4,6 +4,7 @@ import { Footer } from "@/components/Footer";
 import type { Event } from "@shared/schema";
 
 import haldiImage from "@assets/generated_images/Haldi.png";
+import grahShantiImage from "@assets/generated_images/grahshanti.png";
 import sangeetImage from "@assets/generated_images/sangeet.png";
 import baaratImage from "@assets/generated_images/baarat.png";
 import weddingImage from "@assets/generated_images/wedding.png";
@@ -25,7 +26,7 @@ const events: Event[] = [
     time: "4:00 PM – 7:00 PM",
     attire: "Indian Tradition",
     description: "A sacred ceremony performed to invoke blessings from the divine and seek harmony for the upcoming union. This traditional ritual brings peace and prosperity.",
-    image: weddingImage,
+    image: grahShantiImage,
   },
   {
     id: "sangeet",
