@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { differenceInDays, differenceInHours, differenceInMinutes } from "date-fns";
 
 import haldiImage from "@assets/generated_images/Haldi.png";
+import grahShantiImage from "@assets/generated_images/grahshanti.png";
 import sangeetImage from "@assets/generated_images/sangeet.png";
 import baaratImage from "@assets/generated_images/baarat.png";
 import weddingImage from "@assets/generated_images/wedding.png";
@@ -76,7 +77,7 @@ const events: Record<string, Event> = {
     venue: "Tapi Maiya Cricket Ground, C-20, Magdalla Police Line, New Magdalla, Surat, Gujarat 395007",
     address: "Karishma seva cheritebal Trust Tapi Maiya Cricket Ground, C-20, Magdalla Police Line, New Magdalla, Surat, Gujarat 395007",
     host: "Warm regards,\nAtul Patel & Family",
-    image: weddingImage,
+    image: grahShantiImage,
   },
   "sangeet": {
     id: "sangeet",
