@@ -73,7 +73,7 @@ const events: Record<string, Event> = {
     time: "4:00 PM – 7:00 PM",
     dateISO: "2026-02-13T16:00:00",
     attire: "Indian Tradition",
-    description: "🌿 Grah Shanti Ceremony 🌿\n\nShanti • Shubh Aarambh • Divine Blessings\n\nBefore the wedding festivities unfold, we come together to seek peace, positivity, and divine protection for the journey ahead. Grah Shanti is a sacred ritual performed to harmonize planetary energies and invite prosperity, happiness, and well-being into the lives of the couple.\n\nJoin us for the Grah Shanti of Rohan & Hany, where heartfelt prayers, Vedic chants, and auspicious rituals will set the foundation for a blissful and harmonious married life. 🕉️✨\n\nYour presence and blessings will make this sacred beginning truly meaningful.",
+    description: "🌿 Grah Shanti Ceremony 🌿\n\nShanti • Shubh Aarambh • Divine Blessings\n\nBefore the wedding festivities unfold, we come together to seek peace, positivity, and divine protection for the journey ahead. Grah Shanti is a sacred ritual performed to harmonize planetary energies and invite prosperity, happiness, and well-being into the lives of the couple.\n\nJoin us for the Grah Shanti of Rohan, where heartfelt prayers, Vedic chants, and auspicious rituals will set the foundation for a blissful and harmonious married life. 🕉️✨\n\nYour presence and blessings will make this sacred beginning truly meaningful.",
     venue: "Tapi Maiya Cricket Ground, C-20, Magdalla Police Line, New Magdalla, Surat, Gujarat 395007",
     address: "Karishma seva cheritebal Trust Tapi Maiya Cricket Ground, C-20, Magdalla Police Line, New Magdalla, Surat, Gujarat 395007",
     host: "Warm regards,\nAtul Patel & Family",
@@ -159,7 +159,9 @@ export default function EventDetailPage({ params }: { params: { eventId: string 
             <h2 className="text-4xl font-playfair font-semibold text-foreground mb-2">
               {event.id === "haldi" ? "🌼 HALDI HAI! 🌼" : event.name}
             </h2>
-            <h1 className="text-5xl md:text-6xl font-playfair font-bold text-foreground mb-4">Rohan & Hany</h1>
+            <h1 className="text-5xl md:text-6xl font-playfair font-bold text-foreground mb-4">
+              {event.id === "grah-shanti" || event.id === "baarat" ? "Rohan" : "Rohan & Hany"}
+            </h1>
             <p className="text-lg md:text-xl font-montserrat text-muted-foreground mb-6">{event.date} • {event.time}</p>
 
             {/* Simple countdown */}
