@@ -3,12 +3,6 @@ import { EventCard } from "@/components/EventCard";
 import { Footer } from "@/components/Footer";
 import type { Event } from "@shared/schema";
 
-import haldiImage from "@assets/generated_images/Haldi.png";
-import grahShantiImage from "@assets/generated_images/grahshanti.png";
-import sangeetImage from "@assets/generated_images/sangeet.png";
-import baaratImage from "@assets/generated_images/baarat.png";
-import weddingImage from "@assets/generated_images/wedding.png";
-
 const events: Event[] = [
   {
     id: "haldi",
@@ -17,7 +11,7 @@ const events: Event[] = [
     time: "11:00 AM – 3:00 PM",
     attire: "Any Pastels with Happy Vibes",
     description: "A joyous pre-wedding ceremony where turmeric paste is applied to the bride and groom for good luck and radiant skin. Join us for this colorful and fun-filled celebration!",
-    image: haldiImage,
+    image: "/images/Haldi.webp",
   },
   {
     id: "grah-shanti",
@@ -26,7 +20,7 @@ const events: Event[] = [
     time: "4:00 PM – 7:00 PM",
     attire: "Indian Tradition",
     description: "A sacred ceremony performed to invoke blessings from the divine and seek harmony for the upcoming union. This traditional ritual brings peace and prosperity.",
-    image: grahShantiImage,
+    image: "/images/grahshanti.webp",
   },
   {
     id: "sangeet",
@@ -35,7 +29,7 @@ const events: Event[] = [
     time: "7:30 PM – 12:00 AM",
     attire: "Whatever your Heart Tells, Just don't forget to Bring your Dancing Moves",
     description: "Get ready for a night of music, dance, and endless entertainment! Both families will showcase performances celebrating the couple's love story. Bring your energy!",
-    image: sangeetImage,
+    image: "/images/sangeet.webp",
   },
   {
     id: "baarat",
@@ -44,7 +38,7 @@ const events: Event[] = [
     time: "6:00 PM – 9:00 PM",
     attire: "Traditional Indian Wedding Attire",
     description: "The groom's grand procession arrives with music, dancing, and celebration. Join the baraat as we make our way to the wedding ceremony in style!",
-    image: baaratImage,
+    image: "/images/baarat.webp",
   },
   {
     id: "wedding",
@@ -53,7 +47,7 @@ const events: Event[] = [
     time: "9:00 PM – 12:00 AM",
     attire: "Formal Indian Wedding Attire",
     description: "The sacred moment when two souls unite. Witness Rohan and Hany exchange vows under the beautiful mandap, surrounded by love, blessings, and sacred rituals.",
-    image: weddingImage,
+    image: "/images/wedding.webp",
   },
 ];
 

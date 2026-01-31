@@ -6,12 +6,6 @@ import type { Event } from "@shared/schema";
 import { useEffect, useState } from "react";
 import { differenceInDays, differenceInHours, differenceInMinutes } from "date-fns";
 
-import haldiImage from "@assets/generated_images/Haldi.png";
-import grahShantiImage from "@assets/generated_images/grahshanti.png";
-import sangeetImage from "@assets/generated_images/sangeet.png";
-import baaratImage from "@assets/generated_images/baarat.png";
-import weddingImage from "@assets/generated_images/wedding.png";
-
 function EventCountdown({ isoDate }: { isoDate: string }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0 });
 
@@ -64,7 +58,7 @@ const events: Record<string, Event> = {
     venue: "Tapi Maiya Cricket Ground, C-20, Magdalla Police Line, New Magdalla, Surat, Gujarat 395007",
     address: "Karishma seva cheritebal Trust Tapi Maiya Cricket Ground, C-20, Magdalla Police Line, New Magdalla, Surat, Gujarat 395007",
     host: "Warm regards,\nAtul Patel & Family",
-    image: haldiImage,
+    image: "/images/Haldi.webp",
   },
   "grah-shanti": {
     id: "grah-shanti",
@@ -77,7 +71,7 @@ const events: Record<string, Event> = {
     venue: "Tapi Maiya Cricket Ground, C-20, Magdalla Police Line, New Magdalla, Surat, Gujarat 395007",
     address: "Karishma seva cheritebal Trust Tapi Maiya Cricket Ground, C-20, Magdalla Police Line, New Magdalla, Surat, Gujarat 395007",
     host: "Warm regards,\nAtul Patel & Family",
-    image: grahShantiImage,
+    image: "/images/grahshanti.webp",
   },
   "sangeet": {
     id: "sangeet",
@@ -92,7 +86,7 @@ const events: Record<string, Event> = {
     venue: "Tapi Maiya Cricket Ground, C-20, Magdalla Police Line, New Magdalla, Surat, Gujarat 395007",
     address: "Karishma seva cheritebal Trust Tapi Maiya Cricket Ground, C-20, Magdalla Police Line, New Magdalla, Surat, Gujarat 395007",
     host: "Warm regards,\nAtul Patel & Family",
-    image: sangeetImage,
+    image: "/images/sangeet.webp",
   },
     "baarat": {
     id: "baarat",
@@ -106,7 +100,7 @@ const events: Record<string, Event> = {
     venue: "A/9 Balaji Nagar, Himgiri Society, Piplod, Surat, Gujarat 395007",
     address: "Philippe Villa, A/13, behind Lakeview Restaurant, Balaji Nagar, Himgiri Society, Piplod, Surat, Gujarat 395007",
     host: "Warm regards,\nAtul Patel & Family",
-    image: baaratImage,
+    image: "/images/baarat.webp",
   },
     "wedding": {
     id: "wedding",
@@ -120,7 +114,7 @@ const events: Record<string, Event> = {
     venue: "Dipli Gam, Surat, Gujarat 395023",
     address: "21.11551, 72.82216",
     host: "Warm regards,\nAtul Patel & Family",
-    image: weddingImage,
+    image: "/images/wedding.webp",
   },
 };
 
@@ -183,6 +177,7 @@ export default function EventDetailPage({ params }: { params: { eventId: string 
               src={event.image}
               alt={event.name}
               className="w-full h-full object-cover"
+              loading="lazy"
             />
           </div>
 

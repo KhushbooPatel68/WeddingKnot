@@ -5,12 +5,6 @@ import { EventCard } from "@/components/EventCard";
 import { Footer } from "@/components/Footer";
 import type { Event } from "@shared/schema";
 
-import haldiImage from "@assets/generated_images/Haldi.png";
-import grahShantiImage from "@assets/generated_images/grahshanti.png";
-import sangeetImage from "@assets/generated_images/sangeet.png";
-import baaratImage from "@assets/generated_images/baarat.png";
-import weddingImage from "@assets/generated_images/wedding.png";
-
 const events: Event[] = [
   {
     id: "haldi",
@@ -18,7 +12,7 @@ const events: Event[] = [
     date: "Thursday, February 12, 2026",
     time: "11:00 AM – 3:00 PM",
     attire: "Any Pastels with Happy Vibes",
-    image: haldiImage,
+    image: "/images/Haldi.webp",
   },
   {
     id: "grah-shanti",
@@ -26,7 +20,7 @@ const events: Event[] = [
     date: "Friday, February 13, 2026",
     time: "4:00 PM – 7:00 PM",
     attire: "Indian Tradition",
-    image: grahShantiImage,
+    image: "/images/grahshanti.webp",
   },
   {
     id: "sangeet",
@@ -35,7 +29,7 @@ const events: Event[] = [
     time: "7:30 PM – 12:00 AM",
     attire:
       "Whatever your Heart Tells, Just don't forget to Bring your Dancing Moves",
-    image: sangeetImage,
+    image: "/images/sangeet.webp",
   },
   {
     id: "baarat",
@@ -43,7 +37,7 @@ const events: Event[] = [
     date: "Saturday, February 14, 2026",
     time: "6:00 PM – 9:00 PM",
     attire: "Traditional Indian Wedding Attire",
-    image: baaratImage,
+    image: "/images/baarat.webp",
   },
   {
     id: "wedding",
@@ -51,7 +45,7 @@ const events: Event[] = [
     date: "Saturday, February 14, 2026",
     time: "9:00 PM – 12:00 AM",
     attire: "Formal Indian Wedding Attire",
-    image: weddingImage,
+    image: "/images/wedding.webp",
   },
 ];
 

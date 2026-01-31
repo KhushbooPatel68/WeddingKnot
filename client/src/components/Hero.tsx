@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { differenceInDays, differenceInHours, differenceInMinutes } from "date-fns";
-import heroImage from "@assets/generated_images/Wedding_venue_hero_background_8c5522c1.png";
+import heroImage from "@assets/generated_images/Wedding_venue_hero_background_8c5522c1.webp";
 
 export function Hero() {
   const weddingDate = new Date("2026-02-14T00:00:00");
